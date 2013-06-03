@@ -1,0 +1,44 @@
+<div id="news-wrapper">
+	<h1><{$lang_pagetitle}><{if $action == "preview"}> (<{$lang_pagesubtitle}>)<{/if}></h1>
+	<div class="news-nav">
+		<div id="news-switch">
+			<a href="index.php" target="_top"><{$smarty.const._MD_NEWARRIVAL}></a> | <a href="archive.php" target="_top"><{$smarty.const._MD_ARCHIVE}></a>
+		</div>
+	</div>
+	<{if $xoops_isuser}>
+	<div class="news-usrnav">
+		<{$smarty.const._MD_SUBMITNEWS}></a> | <a href="admin/"><{$smarty.const._MD_GOTOMODULEADMIN}></a>
+	</div>
+	<{/if}>
+	<div id="news-submit-ui">
+		<{if $action == "preview"}>
+		<div id="news-preview-article">
+			<blockquote>
+				<p id="news-preview-article-title"><{$preview_title}></p>
+				<p id="news-preview-article-hometext"><{$preview_hometext}></p>
+				<p id="news-preview-article-bodytext"><{$preview_bodytext}></p>
+			</blockquote>
+		</div>
+		<{/if}>
+		<{$formset}>
+	</div>
+	<{if $xoops_isuser}>
+	<div class="news-usrnav">
+		<{$smarty.const._MD_SUBMITNEWS}></a> | <a href="admin/"><{$smarty.const._MD_GOTOMODULEADMIN}></a>
+	</div>
+	<{/if}>
+	<!--div class="news-nav">
+	<{if $nav_links}>
+		<{if $previous_story_id != -1}>
+		<a id="news-nav-pre" href='article.php?storyid=<{$previous_story_id}>' title="<{$previous_story_title}>" target="_top"><{$lang_previous_story}></a>
+		<{/if}>
+		<{if $next_story_id!= -1}>
+		<a id="news-nav-next" href='article.php?storyid=<{$next_story_id}>' title="<{$next_story_title}>"><{$lang_next_story}></a>
+		<{/if}>
+	<{/if}>
+	</div-->
+</div>
+<script type="text/javascript"><!--
+	jQuery(document).ready(function(){ jQuery('#hometext').markItUp(news_embed_markitup_bbcodeset); })
+	jQuery(document).ready(function(){ jQuery('#bodytext').markItUp(news_embed_markitup_bbcodeset); })
+//--></script>

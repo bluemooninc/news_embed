@@ -1,0 +1,40 @@
+<div id="news-wrapper">
+	<h1><{$lang_newsarchives}><{if $currentyear}> - <{$currentyear}><{$smarty.const._MD_YEARC}> <{$currentmonth}><{$smarty.const._MD_NEWS_OF}><{/if}></h1>
+	<div class="news-nav">
+		<div id="news-switch">
+			<a href="index.php" target="_top"><{$smarty.const._MD_NEWARRIVAL}></a> | <span><{$smarty.const._MD_ARCHIVE}></span>
+		</div>
+	</div>
+	<{if $xoops_isuser}>
+	<div class="news-usrnav">
+		<a href="submit.php"><{$smarty.const._MD_SUBMITNEWS}></a> | <a href="admin/"><{$smarty.const._MD_GOTOMODULEADMIN}></a>
+	</div>
+	<{/if}>
+	<div id="news-calender">
+		<ul id="news-arch-ylist">
+		<{foreach item=year from=$years}>
+			<li>
+				<h2><a href="<{$xoops_url}>/modules/news/archive.php?year=<{$year.number}>"><{$year.number}></a></h2>
+				<ul class="news-arch-mlist">
+				<{foreach item=month from=$year.months}>
+					<li>
+						<a href="<{$xoops_url}>/modules/news/archive.php?year=<{$year.number}>&amp;month=<{$month.number}>"><{$month.string}></a>
+					</li>
+				<{/foreach}>
+				</ul>
+			</li>
+		<{/foreach}>
+		</ul>
+	</div>
+	<{if $show_articles == true}>
+	<div id="news-list">
+		<h2><{ $currentyear }><{$smarty.const._MD_YEARC}><{ $currentmonth }><{$smarty.const._MD_NEWSLIST_OF}></h2>
+		<p><{$lang_storytotal}></p>
+		<ul>
+		<{foreach item=story from=$stories}>
+			<li><h3><{$story.date}> - <{$story.title}></h3></li>
+		<{/foreach}>
+		</ul>
+	</div>
+	<{/if}>
+</div>

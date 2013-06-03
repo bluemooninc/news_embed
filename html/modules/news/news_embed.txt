@@ -1,0 +1,36 @@
+/******************************************************************************
+Program name  : news embed
+Based by      : news v1.44 (c) The XOOPS Project Module Dev Team
+Embed hack by : Yoshi SAKAI ( www.bluemooninc.biz )
+ *****************************************************************************
+  This program is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free Software
+  Foundation; either version 2 of the License, or (at your option) any later 
+  version.
+******************************************************************************/
+Description :
+
+1. Auto embedding for images, media and zip files. (You can add MIME-type at fileup.ini.php)
+2. Auto resize for thumbnail image.
+3. Full compatible as original news v1.44
+
+
+v1.44 2006/07/29 At submit.php, Change XOOPS_UPLOAD_PATH to UPLOADS(in fileup.ini.php)
+v1.44 2006/09/28 At archive.php,news_archive.html. Modify row colmn layout. Add a show whole year mode.
+v1.44 2006/09/29 Bugfix about recent view block at news_top.php
+           Add admin/sqlupdate for V1.3 to V1.44.
+v1.44 2006/10/29 Fix ./fpdf/language/japanese.php for character setting.
+v1.44 2007/01/10 Bugfix; <? to <?php at download.php.
+v1.44 2007/01/20 Add topic title to the left of story title at news_block_top.html
+v1.45 2008/04/25 Security Update for XSS Vulnerability at download.php.
+v1.46 2009/01/13 Style designed by Makinosuke. icon_32x32.png, icon_24x24.png Design by TYPEFACE. MarkItUp jQuery plugin was supported.
+v1.47 2009/02/21 Added topic title in include/serch.inc.php.
+v1.48 2009/04/28 
+      1.For Xoops CUBE of preference
+      2.For Download as Japanese name
+      3.For Xoops CUBE of the crumble of the screen is corrected about the management screen.
+      4.For correct header as download to each browser
+v1.49 2009/05/01 Fixed: event notify and poster name on template.
+v1.50 2009/06/04 New: Event notify as displayed topic with home text.
+v1.50a 2009/07/29 Added 2 messages in English file. clean up for notice message.
+v1.50b 2009/09/03 Fixed a div tag closing news_article template.

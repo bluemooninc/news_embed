@@ -1,0 +1,84 @@
+<div class="adminnavi">
+	<a href="./index.php"><{$smarty.const._MI_NEWS_NAME}></a>
+	&raquo;&raquo; <a href="./index.php?action=StoryList"><{$smarty.const._AD_PEARTICLES}></a>
+	&raquo;&raquo;
+	<{if $actionForm->get('storyid') }>
+	<span class="adminnaviTitle"><{$smarty.const._AD_EDIT}></span>
+	<{else}>
+	<span class="adminnaviTitle"><{$smarty.const._AD_NEWS_STORY_NEW}></span>
+	<{/if}>
+</div>
+
+<{if $actionForm->get('storyid') }>
+<h3 class="admintitle"><{$smarty.const._AD_EDIT}> (<{$actionForm->get('title')}>)</h3>
+<{else}>
+<h3 class="admintitle"><{$smarty.const._AD_NEWS_STORY_NEW}></h3>
+<{/if}>
+
+<{if $actionForm->hasError()}>
+<div class="error">
+	<ul>
+		<{foreach item=message from=$actionForm->getErrorMessages()}>
+		<li><{$message|xoops_escape}></li>
+		<{/foreach}>
+	</ul>
+</div>
+<{/if}>
+
+<form action="?action=StoryEdit" method="post">
+	<{xoops_token form=$actionForm}>
+	<{xoops_input type=hidden name=storyid value=$actionForm->get('storyid')}>
+	<table class="outer">
+		<tr>
+			<th colspan="2">
+				<{if $actionForm->get('storyid') }>
+				<{$smarty.const._AD_EDIT}> (<{$actionForm->get('title')}>)
+				<{else}>
+				<{$smarty.const._AD_NEWS_STORY_NEW}>
+				<{/if}>
+			</th>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._AD_TOPIC}></td>
+			<td class="<{cycle values=" odd,even"}>">
+			<{html_options name=topicid options=$topicOptions selected=$actionForm->get('topicid')}>
+			</td>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._AD_TITLE}></td>
+			<td class="<{cycle values=" odd,even"}>">
+			<{xoops_input type=text name=title value=$actionForm->get('title')}>
+			</td>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._AD_INTROTEXT}></td>
+			<td class="<{cycle values=" odd,even"}>">
+			<{xoops_dhtmltarea name=hometext value=$actionForm->get('hometext')}>
+			</td>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._AD_EXTEXT}></td>
+			<td class="<{cycle values=" odd,even"}>">
+			<{xoops_dhtmltarea name=bodytext value=$actionForm->get('bodytext')}>
+			</td>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._AD_PUBLISHED}></td>
+			<td class="<{cycle values=" odd,even"}>">
+			<{xoops_input type=text name=published value=$actionForm->get('published') class='datepicker'}>
+			</td>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._AD_EXPIRED}></td>
+			<td class="<{cycle values=" odd,even"}>">
+			<{xoops_input type=text name=expired value=$actionForm->get('expired') class='datepicker'}>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="foot">
+				<input class="formButton" type="submit" value="<{$smarty.const._SUBMIT}>"/>
+				<input class="formButton" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel"/>
+			</td>
+		</tr>
+	</table>
+</form>

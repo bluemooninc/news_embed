@@ -1,0 +1,50 @@
+<div id="news-wrapper">
+	<h1><{$smarty.const._MD_NEWSRELEASE}><{if $topic_title}> - <{$topic_title}><{else}> - <{$smarty.const._MD_ALLTOPIC}><{/if}></h1>
+	<{if $displaynav == true}>
+	<div class="news-nav">
+		<div id="news-switch">
+			<span><{$smarty.const._MD_NEWARRIVAL}></span> | <a href="archive.php" target="_top"><{$smarty.const._MD_ARCHIVE}></a>
+		</div>
+		<form name="form1" action="<{$xoops_url}>/modules/news/index.php" method="get">
+			<{$smarty.const._MD_SELECTTOPIC}>
+			<{$topic_select}> 
+			<select name="storynum"><{$storynum_options}></select>
+			<input type="submit" value="<{$smarty.const._MD_SELECT}>" class="formButton" />
+		</form>
+	</div>
+	<{/if}>
+	<{if $xoops_isuser}>
+	<div class="news-usrnav">
+		<a href="submit.php"><{$smarty.const._MD_SUBMITNEWS}></a> | <a href="admin/"><{$smarty.const._MD_GOTOMODULEADMIN}></a>
+	</div>
+	<{/if}>
+	<div id="news-list">
+		<ol>
+		<{section name=i loop=$columns}>
+		<{foreach item=story from=$columns[i]}>
+			<li>
+				<h2><span class="news-index-date"><{$story.posttime}></span> - <{$story.title}></h2>
+				<p><{$story.text}> <{$story.morelink}> <{$story.adminlink}></p>
+			</li>
+			<{if $story.poster != ''}>
+				<div class="itemInfo">
+				<{if $story.files_attached}><{$story.attached_link}>&nbsp;<{/if}>
+				<span class="itemPoster"><{$lang_postedby}> <{$story.poster}></span>
+				<span class="itemPostDate"><{$lang_on}> <{$story.posttime}></span> (<span class="itemStats"><{$story.hits}> <{$lang_reads}></span>) 
+				<{$news_by_the_same_author_link}>
+				</div>
+			<{/if}>
+		<{/foreach}>
+		<{/section}>
+		</ol>
+	</div>
+	<{if $xoops_isuser}>
+	<div class="news-usrnav">
+		<a href="submit.php"><{$smarty.const._MD_SUBMITNEWS}></a> | <a href="admin/"><{$smarty.const._MD_GOTOMODULEADMIN}></a>
+	</div>
+	<{/if}>
+	<div class="news-nav">
+		<{$pagenav}>
+	</div>
+</div>
+<{include file='db:system_notification_select.html'}>

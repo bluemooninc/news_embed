@@ -1,0 +1,66 @@
+<div id="news-wrapper">
+<{if $topicObject}>
+		<a class="label" href="<{$xoops_url}>/modules/news/index.php?storytopic=<{$topicObject->getShow('topic_id')}>">
+			<{$topicObject->getShow('topic_title')}>
+		</a>
+<{/if}>
+<{if $storyObject}>
+	<h1><{$storyObject->getShow('title')}></h1>
+	<{$smarty.const._MD_AUTHOR}>
+	<a href="<{$xoops_url}>/userinfo.php?uid=<{$userObject->getShow('uid')}>">
+		<{$userObject->getShow('uname')|xoops_escape}>
+	</a>
+	<small>
+	<{$smarty.const._MD_POSTEDON}><{$storyObject->getShow('created')|date_format:"%Y/%m/%d %H:%M"}>
+	&nbsp;<{$smarty.const._MD_PUBLISHEDON}><{$storyObject->getShow('published')|date_format:"%Y/%m/%d %H:%M"}>
+	&nbsp;(&nbsp;<{$storyObject->getShow('counter')}><{$smarty.const._MD_VIEWS}>&nbsp;)
+	</small>
+	<{if $xoops_isuser}>
+	<div class="pull-right">
+		<a class="badge" href="<{$xoops_url}>/modules/news/submit.php?op=edit&amp;storyid=<{$storyObject->getShow('storyid')}>"><{$smarty.const._EDIT}></a>
+		<a class="badge" href="<{$xoops_url}>/modules/news/admin/index.php?op=delete&amp;storyid=<{$storyObject->getShow('storyid')}>"><{$smarty.const._DELETE}></a>
+	</div>
+	<{/if}>
+	<p><hr /></p>
+	<div id="news-art-body">
+		<{$storyObject->getShow('hometext')}>
+		<{$storyObject->getShow('bodytext')}>
+	</div>
+<{/if}>
+<{if $filesObjects}>
+	<{foreach item=filesObject from=$filesObjects }>
+		<a href="<{$xoops_url}>/modules/news/download.php?url=/<{$filesObject->getShow('downloadname')}>&filename=<{$filesObject->getShow('filerealname')}>">
+			<i class="icon-download"></i>
+			<{$filesObject->getShow('filerealname')}>
+		</a>
+	<{/foreach}>
+<{/if}>
+
+
+	<div class="news-nav">
+		<{if $nav_links}>
+		<{if $previous_story_id != -1}>
+		<a id="news-nav-pre" href='article.php?storyid=<{$previous_story_id}>' title="<{$previous_story_title}>" target="_top"><{$lang_previous_story}></a>
+		<{/if}>
+		<{if $next_story_id!= -1}>
+		<a id="news-nav-next" href='article.php?storyid=<{$next_story_id}>' title="<{$next_story_title}>"><{$lang_next_story}></a>
+		<{/if}>
+		<{/if}>
+	</div>
+</div>
+<!-- comment section -->
+<div style="text-align: center; padding: 3px; margin:3px;">
+	<{$commentsnav}>
+	<{$lang_notice}>
+</div>
+<div style="margin:3px; padding: 3px;">
+<{if $comment_mode == "flat"}>
+	<{include file="db:system_comments_flat.html"}>
+<{elseif $comment_mode == "thread"}>
+	<{include file="db:system_comments_thread.html"}>
+<{elseif $comment_mode == "nest"}>
+	<{include file="db:system_comments_nest.html"}>
+<{/if}>
+<!-- comment section -->
+<{include file='db:system_notification_select.html'}>
+</div>

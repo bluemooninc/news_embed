@@ -1,0 +1,77 @@
+<div class="adminnavi">
+	<a href="./index.php"><{$smarty.const._MI_NEWS_NAME}></a>
+	&raquo;&raquo; <span class="adminnaviTitle"><a href="./index.php?action=StoryList"><{$smarty.const._AD_PEARTICLES}></a></span>
+</div>
+
+<h3 class="admintitle"><{$smarty.const._AD_NEWS_STORY_LIST}></h3>
+<{*
+<div class="tips"><{$smarty.const._AD_NEWS_TIPS_STORY_EDIT}></div>
+*}>
+
+<ul class="toptab">
+	<li class="add"><a href="index.php?action=StoryEdit"><{$smarty.const._AD_POSTNEWARTICLE}></a></li>
+</ul>
+
+<div>
+	<form action="./index.php" method="get">
+		<input type="hidden" name="action" value="itemList" />
+		<{$smarty.const._SEARCH}> :
+		<input type="text" name="search" value="<{$filterForm->mKeyword}>" />
+		<input class="formButton" type="submit" value="<{$smarty.const._SUBMIT}>" />
+	</form>
+</div>
+
+<table class="outer">
+	<tr>
+		<th><{$smarty.const._AD_PUBLISHED}>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ITEM_SORT_KEY_UPDATE}>"><i class="icon-up"></i></a>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ITEM_SORT_KEY_UPDATE}>"><i class="icon-down"></i></a>
+		</th>
+		<th><{$smarty.const._AD_CREATED}>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ITEM_SORT_KEY_UPDATE}>"><i class="icon-up"></i></a>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ITEM_SORT_KEY_UPDATE}>"><i class="icon-down"></i></a>
+		</th>
+		<th><{$smarty.const._AD_EXPIRED}>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ITEM_SORT_KEY_UPDATE}>"><i class="icon-up"></i></a>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ITEM_SORT_KEY_UPDATE}>"><i class="icon-down"></i></a>
+		</th>
+		<th><{$smarty.const._AD_TOPIC}>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ITEM_SORT_KEY_topic}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ITEM_SORT_KEY_topic}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+		</th>
+		<th><{$smarty.const._AD_TITLE}>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ITEM_SORT_KEY_NAME}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ITEM_SORT_KEY_NAME}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+		</th>
+
+		<th><{$smarty.const._AD_ACTION}></th>
+	</tr>
+	<{foreach item=story from=$objects}>
+	<{assign var=topicId value=$story->getShow('topicid')}>
+	<tr class="<{cycle values='odd,even'}>">
+		<td class="item_list_date"><{$story->getShow('published')|date_format:"%G-%m-%d"}></td>
+		<td class="item_list_date"><{$story->getShow('created')|date_format:"%G-%m-%d"}></td>
+		<td class="item_list_date"><{$story->getShow('expired')|date_format:"%G-%m-%d"}></td>
+		<td class="item_list_title">(<{$topicId}>)<{$topicList[$topicId]}></td>
+		<td class="item_list_title">(<{$story->getShow('storyid')}>)<{$story->getShow('title')}></td>
+		<td class="item_list_control">
+			<a href="index.php?action=StoryEdit&amp;storyid=<{$story->getShow('storyid')}>">
+				<img src="<{"icons/edit.png"|theme}>" alt="<{$smarty.const._EDIT}>" title="<{$smarty.const._EDIT}>" />
+			</a>
+			<{if $story->get('storyid') > $smarty.const.XOOPS_STORY_ANONYMOUS }>
+			<a href="index.php?action=StoryDelete&amp;storyid=<{$story->getShow('storyid')}>">
+				<img src="<{"icons/delete.png"|theme}>" alt="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>" />
+			</a>
+			<{/if}>
+			<a href="index.php?action=imageList&amp;storyid=<{$story->getShow('storyid')}>">
+				<img src="<{"icons/image_add.png"|theme}>" alt="<{$smarty.const._AD_NEWS_ADD_IMAGE}>" title="<{$smarty.const._AD_NEWS_ADD_IMAGE}>" />
+			</a>
+			<a href="../app/article.php?storyid=<{$story->getShow('storyid')}>">
+				<img src="<{"icons/property.png"|theme}>" alt="<{$smarty.const._AD_NEWS_SHOW_ITEM}>" title="<{$smarty.const._AD_NEWS_SHOW_ITEM}>" />
+			</a>
+		</td>
+	</tr>
+	<{/foreach}>
+</table>
+
+<div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
