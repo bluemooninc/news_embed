@@ -1,0 +1,52 @@
+<div class="adminnavi">
+	<a href="./index.php"><{$smarty.const._MI_NEWS_NAME}></a>
+	&raquo;&raquo; <span class="adminnaviTitle"><a href="./index.php?action=ItemList"><{$smarty.const._AD_NEWS_ATTACH_LIST}></a></span>
+</div>
+
+<h3 class="admintitle"><{$smarty.const._AD_NEWS_ATTACH_LIST}></h3>
+<{*
+<div class="tips"><{$smarty.const._AD_NEWS_TIPS_ATTACH_EDIT}></div>
+*}>
+
+<ul class="toptab">
+	<li class="add"><a href="index.php?action=AttachEdit<{if $storyid}>&amp;storyid=<{$storyid}><{/if}>">
+		<{$smarty.const._AD_NEWS_ATTACH_NEW}>
+	</a></li>
+</ul>
+<{if $itemObject}>
+<h2><{$itemObject->getShow('item_name')}></h2>
+<{/if}>
+<table class="outer">
+	<tr>
+		<th><{$smarty.const._AD_NEWS_ATTACH_ID}>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ATTACH_SORT_KEY_ATTACH_ID}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ATTACH_SORT_KEY_ATTACH_ID}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a></th>
+		<th><{$smarty.const._AD_NEWS_STORY_ID}>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ATTACH_SORT_KEY_ITEM_ID}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ATTACH_SORT_KEY_ITEM_ID}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a></th>
+		<th><{$smarty.const._AD_NEWS_MIME}>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ATTACH_SORT_KEY_ATTACH_FILENAME}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ATTACH_SORT_KEY_ATTACH_FILENAME}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a></th>
+		<th><{$smarty.const._AD_NEWS_ATTACHFILE}>
+		<th><{$smarty.const._AD_NEWS_CONTROL}></th>
+	</tr>
+	<{foreach item=attach from=$objects}>
+	<tr class="<{cycle values='odd,even'}>">
+		<td class="item_list_number"><{$attach->getShow('fileid')}></td>
+		<td class="item_list_number"><{$attach->getShow('storyid')}></td>
+		<td class="item_list_string"><{$attach->getShow('mimetype')}></td>
+		<td class="item_list_string">
+			<a href="<{$xoops_url}>/uploads/<{$attach->getShow('downloadname')}>">
+				<{$attach->getShow('filerealname')}>
+			</a>
+		</td>
+		<td class="item_list_control">
+			<a href="index.php?action=AttachDelete&amp;fileid=<{$attach->getShow('fileid')}>">
+				<img src="<{"icons/delete.png"|theme}>" alt="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>" />
+			</a>
+		</td>
+	</tr>
+	<{/foreach}>
+</table>
+
+<div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>

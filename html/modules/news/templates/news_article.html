@@ -4,16 +4,19 @@
 			<{$topicObject->getShow('topic_title')}>
 		</a>
 <{/if}>
+
 <{if $storyObject}>
 	<h1><{$storyObject->getShow('title')}></h1>
 	<{$smarty.const._MD_AUTHOR}>
+	<{if $userObject}>
 	<a href="<{$xoops_url}>/userinfo.php?uid=<{$userObject->getShow('uid')}>">
 		<{$userObject->getShow('uname')|xoops_escape}>
 	</a>
+	<{/if}>
 	<small>
-	<{$smarty.const._MD_POSTEDON}><{$storyObject->getShow('created')|date_format:"%Y/%m/%d %H:%M"}>
-	&nbsp;<{$smarty.const._MD_PUBLISHEDON}><{$storyObject->getShow('published')|date_format:"%Y/%m/%d %H:%M"}>
-	&nbsp;(&nbsp;<{$storyObject->getShow('counter')}><{$smarty.const._MD_VIEWS}>&nbsp;)
+		<{$smarty.const._MD_POSTEDON}><{$storyObject->getShow('created')|date_format:"%Y/%m/%d %H:%M"}>
+		&nbsp;<{$smarty.const._MD_PUBLISHEDON}><{$storyObject->getShow('published')|date_format:"%Y/%m/%d %H:%M"}>
+		&nbsp;(&nbsp;<{$storyObject->getShow('counter')}><{$smarty.const._MD_VIEWS}>&nbsp;)
 	</small>
 	<{if $xoops_isuser}>
 	<div class="pull-right">
@@ -29,13 +32,12 @@
 <{/if}>
 <{if $filesObjects}>
 	<{foreach item=filesObject from=$filesObjects }>
-		<a href="<{$xoops_url}>/modules/news/download.php?url=/<{$filesObject->getShow('downloadname')}>&filename=<{$filesObject->getShow('filerealname')}>">
-			<i class="icon-download"></i>
-			<{$filesObject->getShow('filerealname')}>
-		</a>
+	<a href="<{$xoops_url}>/modules/news/download.php?url=/<{$filesObject->getShow('downloadname')}>&filename=<{$filesObject->getShow('filerealname')}>">
+		<i class="icon-download"></i>
+		<{$filesObject->getShow('filerealname')}>
+	</a>
 	<{/foreach}>
 <{/if}>
-
 
 	<div class="news-nav">
 		<{if $nav_links}>

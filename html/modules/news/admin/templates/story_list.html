@@ -14,7 +14,7 @@
 
 <div>
 	<form action="./index.php" method="get">
-		<input type="hidden" name="action" value="itemList" />
+		<input type="hidden" name="action" value="storyList" />
 		<{$smarty.const._SEARCH}> :
 		<input type="text" name="search" value="<{$filterForm->mKeyword}>" />
 		<input class="formButton" type="submit" value="<{$smarty.const._SUBMIT}>" />
@@ -23,6 +23,14 @@
 
 <table class="outer">
 	<tr>
+		<th><{$smarty.const._AD_TITLE}>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ITEM_SORT_KEY_NAME}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ITEM_SORT_KEY_NAME}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+		</th>
+		<th><{$smarty.const._AD_NEWS_STATS1}>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ITEM_SORT_KEY_UPDATE}>"><i class="icon-up"></i></a>
+			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ITEM_SORT_KEY_UPDATE}>"><i class="icon-down"></i></a>
+		</th>
 		<th><{$smarty.const._AD_PUBLISHED}>
 			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ITEM_SORT_KEY_UPDATE}>"><i class="icon-up"></i></a>
 			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ITEM_SORT_KEY_UPDATE}>"><i class="icon-down"></i></a>
@@ -39,21 +47,19 @@
 			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ITEM_SORT_KEY_topic}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
 			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ITEM_SORT_KEY_topic}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
 		</th>
-		<th><{$smarty.const._AD_TITLE}>
-			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ITEM_SORT_KEY_NAME}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
-			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ITEM_SORT_KEY_NAME}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
-		</th>
 
 		<th><{$smarty.const._AD_ACTION}></th>
 	</tr>
 	<{foreach item=story from=$objects}>
 	<{assign var=topicId value=$story->getShow('topicid')}>
+	<{assign var=uid value=$story->getShow('uid')}>
 	<tr class="<{cycle values='odd,even'}>">
+		<td class="item_list_title">(<{$story->getShow('storyid')}>)<{$story->getShow('title')}></td>
+		<td class="item_list_title">(<{$uid}>) <{$unameArray[$uid]}></td>
 		<td class="item_list_date"><{$story->getShow('published')|date_format:"%G-%m-%d"}></td>
 		<td class="item_list_date"><{$story->getShow('created')|date_format:"%G-%m-%d"}></td>
 		<td class="item_list_date"><{$story->getShow('expired')|date_format:"%G-%m-%d"}></td>
-		<td class="item_list_title">(<{$topicId}>)<{$topicList[$topicId]}></td>
-		<td class="item_list_title">(<{$story->getShow('storyid')}>)<{$story->getShow('title')}></td>
+		<td class="item_list_title">(<{$topicId}>)<{$topicNameArray[$topicId]}></td>
 		<td class="item_list_control">
 			<a href="index.php?action=StoryEdit&amp;storyid=<{$story->getShow('storyid')}>">
 				<img src="<{"icons/edit.png"|theme}>" alt="<{$smarty.const._EDIT}>" title="<{$smarty.const._EDIT}>" />
@@ -63,7 +69,7 @@
 				<img src="<{"icons/delete.png"|theme}>" alt="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>" />
 			</a>
 			<{/if}>
-			<a href="index.php?action=imageList&amp;storyid=<{$story->getShow('storyid')}>">
+			<a href="index.php?action=attachList&amp;storyid=<{$story->getShow('storyid')}>">
 				<img src="<{"icons/image_add.png"|theme}>" alt="<{$smarty.const._AD_NEWS_ADD_IMAGE}>" title="<{$smarty.const._AD_NEWS_ADD_IMAGE}>" />
 			</a>
 			<a href="../app/article.php?storyid=<{$story->getShow('storyid')}>">

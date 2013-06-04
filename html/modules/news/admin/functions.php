@@ -130,9 +130,9 @@ function news_collapsableBar($tablename = '', $iconname = '')
 		return false;
 	}
 
-	var iconClose = new Image();
+	var iconClose = new Attach();
 	iconClose.src = '../images/close12.gif';
-	var iconOpen = new Image();
+	var iconOpen = new Attach();
 	iconOpen.src = '../images/open12.gif';
 
 	function toggleIcon ( iconName )

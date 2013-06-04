@@ -47,4 +47,13 @@ class news_storiesHandler extends XoopsObjectGenericHandler
 	{
 		parent::XoopsObjectGenericHandler($db);
 	}
+	public function &getStoryOptions(){
+		$criteria = null;
+		$storyObjects = $this->getObjects();
+		$ret = array();
+		foreach($storyObjects as $storyObject){
+			$ret[$storyObject->getVar('storyid')] = $storyObject->getVar('title');
+		}
+		return $ret;
+	}
 }

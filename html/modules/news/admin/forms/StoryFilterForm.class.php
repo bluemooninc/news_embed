@@ -8,30 +8,26 @@ if (!defined('XOOPS_ROOT_PATH')) exit();
 
 require_once XOOPS_MODULE_PATH . "/news/class/AbstractFilterForm.class.php";
 
-define('ITEM_SORT_KEY_UPDATE'  , 1);
-define('ITEM_SORT_KEY_CATEGORY', 2);
-define('ITEM_SORT_KEY_NAME'    , 3);
-define('ITEM_SORT_KEY_PRICE'   , 4);
-define('ITEM_SORT_KEY_SHIPPING', 5);
-define('ITEM_SORT_KEY_STOCK'   , 6);
-define('ITEM_SORT_KEY_DEFAULT' , ITEM_SORT_KEY_UPDATE);
+define('ITEM_SORT_KEY_STORY'   , 1);
+define('ITEM_SORT_KEY_UPDATE'  , 2);
+define('ITEM_SORT_KEY_TOPIC'   , 3);
+define('ITEM_SORT_KEY_NAME'    , 4);
+define('ITEM_SORT_KEY_DEFAULT' , ITEM_SORT_KEY_STORY);
 
 class news_StoryFilterForm extends news_AbstractFilterForm
 {
 	var $mSortKeys = array(
-		ITEM_SORT_KEY_DEFAULT  => 'published',
-		ITEM_SORT_KEY_UPDATE   => 'published',
-		ITEM_SORT_KEY_CATEGORY => 'topic_id',
-		ITEM_SORT_KEY_NAME     => 'story_name',
-		ITEM_SORT_KEY_PRICE    => 'price',
-		ITEM_SORT_KEY_SHIPPING => 'shipping_fee',
-		ITEM_SORT_KEY_STOCK    => 'stock_qty'
+		ITEM_SORT_KEY_DEFAULT  => 'storyid',
+		ITEM_SORT_KEY_STORY    => 'storyid',
+		ITEM_SORT_KEY_UPDATE   => 'created',
+		ITEM_SORT_KEY_TOPIC    => 'topic_id',
+		ITEM_SORT_KEY_NAME     => 'title',
 	);
 	var $mKeyword = "";
 
 	function getDefaultSortKey()
 	{
-		return -ITEM_SORT_KEY_DEFAULT;
+		return ITEM_SORT_KEY_DEFAULT;
 	}
 	
 	function fetch()
@@ -64,7 +60,7 @@ class news_StoryFilterForm extends news_AbstractFilterForm
 		if (!empty($search)) {
 			$this->mKeyword = $search;
 			$this->mNavi->addExtra('search', $this->mKeyword);
-			$this->_mCriteria->add(new Criteria('story_name', '%' . $this->mKeyword . '%', 'LIKE'));
+			$this->_mCriteria->add(new Criteria('title', '%' . $this->mKeyword . '%', 'LIKE'));
 		}
 
 		$this->_mCriteria->addSort($this->getSort(), $this->getOrder());

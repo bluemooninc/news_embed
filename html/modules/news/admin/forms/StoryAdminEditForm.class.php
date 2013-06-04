@@ -54,6 +54,7 @@ class news_StoryAdminEditForm extends XCube_ActionForm
 	{
 		$topicid = xoops_getrequest('topicid') ? xoops_getrequest('topicid') : $obj->get('topicid');
 		$this->set('storyid', $obj->get('storyid'));
+		$this->set('uid', $obj->get('uid'));
 		$this->set('topicid', $topicid);
 		$this->set('title', $obj->get('title'));
 		$this->set('hometext', $obj->get('hometext'));
@@ -65,7 +66,9 @@ class news_StoryAdminEditForm extends XCube_ActionForm
 
 	function update(&$obj)
 	{
+		$uid = $obj->get('uid') ? $obj->get('uid') : Legacy_Utils::getUid();
 		$obj->set('storyid', $this->get('storyid'));
+		$obj->set('uid', $uid);
 		$obj->set('topicid', $this->get('topicid'));
 		$obj->set('title', $this->get('title'));
 		$obj->set('hometext', $this->get('hometext'));

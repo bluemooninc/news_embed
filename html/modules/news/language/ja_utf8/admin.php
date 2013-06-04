@@ -177,3 +177,14 @@ define('_AD_NEWS_PLEASE_UPGRADE',"<a href='upgrade.php'><font color='#FF0000'>�
 
 // Action Form
 define("_MD_NEWS_ERROR_REQUIRED","入力必須項目");
+define("_MD_NEWS_STORY_ID","記事ID");
+define("_MD_NEWS_ATTACH_ID","添付ID");
+
+// attach file
+define("_AD_NEWS_ATTACH_LIST","記事へのファイル添付");
+define("_AD_NEWS_ATTACH_NEW","新しいファイルの添付");
+define("_AD_NEWS_ATTACH_ID","添付ID");
+define("_AD_NEWS_STORY_ID","記事ID");
+define("_AD_NEWS_MIME","MIME");
+define("_AD_NEWS_ATTACHFILE","ファイル名");
+define("_AD_NEWS_CONTROL","操作");

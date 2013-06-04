@@ -5,14 +5,14 @@
 	<{if $actionForm->get('storyid') }>
 	<span class="adminnaviTitle"><{$smarty.const._AD_EDIT}></span>
 	<{else}>
-	<span class="adminnaviTitle"><{$smarty.const._AD_NEWS_STORY_NEW}></span>
+	<span class="adminnaviTitle"><{$smarty.const._AD_POSTNEWARTICLE}></span>
 	<{/if}>
 </div>
 
 <{if $actionForm->get('storyid') }>
 <h3 class="admintitle"><{$smarty.const._AD_EDIT}> (<{$actionForm->get('title')}>)</h3>
 <{else}>
-<h3 class="admintitle"><{$smarty.const._AD_NEWS_STORY_NEW}></h3>
+<h3 class="admintitle"><{$smarty.const._AD_POSTNEWARTICLE}></h3>
 <{/if}>
 
 <{if $actionForm->hasError()}>
@@ -32,9 +32,9 @@
 		<tr>
 			<th colspan="2">
 				<{if $actionForm->get('storyid') }>
-				<{$smarty.const._AD_EDIT}> (<{$actionForm->get('title')}>)
+				<{$smarty.const._AD_EDIT}> (<{$actionForm->get('title')}>) <{$actionForm->get('uid')}>
 				<{else}>
-				<{$smarty.const._AD_NEWS_STORY_NEW}>
+				<{$smarty.const._AD_POSTNEWARTICLE}>
 				<{/if}>
 			</th>
 		</tr>
