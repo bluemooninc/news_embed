@@ -44,6 +44,8 @@ class Controller_Article extends AbstractAction {
 		$view->set('topicObject', $this->topicObject);
 		$view->set('userObject', $this->userObject);
 		$view->set('filesObjects', $this->filesObjects);
+		$view->set('actionForm', $this->mActionForm);
+
 		// for comment section
 		$this->_comment_view();
 		if (is_object($this->mPagenavi)) {

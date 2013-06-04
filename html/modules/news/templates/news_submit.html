@@ -1,3 +1,61 @@
+<h1><{$smarty.const._MD_SUBMITNEWS}></h1>
+<form action="?action=StoryEdit" method="post">
+	<{xoops_token form=$actionForm}>
+	<{xoops_input type=hidden name=storyid value=$actionForm->get('storyid')}>
+	<table class="table">
+		<tr>
+			<th colspan="2">
+				<{if $actionForm->get('storyid') }>
+					<{$actionForm->get('uid')}>
+				<{else}>
+					<{$smarty.const._MD_POSTNEWARTICLE}>
+				<{/if}>
+			</th>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._MD_TOPIC}></td>
+			<td class="<{cycle values='odd,even'}>">
+			<{html_options name=topicid options=$topicOptions selected=$actionForm->get('topicid')}>
+			</td>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._MD_TITLE}></td>
+			<td class="<{cycle values='odd,even'}>">
+			<{xoops_input type=text name=title value=$actionForm->get('title')}>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><{$smarty.const._MD_INTROTEXT}><br />
+			<{xoops_dhtmltarea name=hometext value=$actionForm->get('hometext')}>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><{$smarty.const._MD_EXTEXT}><br />
+			<{xoops_dhtmltarea name=bodytext value=$actionForm->get('bodytext')}>
+			</td>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._MD_PUBLISHED}></td>
+			<td class="<{cycle values='odd,even'}>">
+			<{xoops_input type=text name=published value=$actionForm->get('published') class='datepicker'}>
+			</td>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._MD_EXPIRED}></td>
+			<td class="<{cycle values='odd,even'}>">
+			<{xoops_input type=text name=expired value=$actionForm->get('expired') class='datepicker'}>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="foot">
+				<input class="btn" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel"/>
+				<input class="btn btn-primary" type="submit" value="<{$smarty.const._SUBMIT}>"/>
+			</td>
+		</tr>
+	</table>
+</form>
+
+
 <div id="news-wrapper">
 	<h1><{$lang_pagetitle}><{if $action == "preview"}> (<{$lang_pagesubtitle}>)<{/if}></h1>
 	<div class="news-nav">
@@ -5,11 +63,6 @@
 			<a href="index.php" target="_top"><{$smarty.const._MD_NEWARRIVAL}></a> | <a href="archive.php" target="_top"><{$smarty.const._MD_ARCHIVE}></a>
 		</div>
 	</div>
-	<{if $xoops_isuser}>
-	<div class="news-usrnav">
-		<{$smarty.const._MD_SUBMITNEWS}></a> | <a href="admin/"><{$smarty.const._MD_GOTOMODULEADMIN}></a>
-	</div>
-	<{/if}>
 	<div id="news-submit-ui">
 		<{if $action == "preview"}>
 		<div id="news-preview-article">
@@ -38,7 +91,3 @@
 	<{/if}>
 	</div-->
 </div>
-<script type="text/javascript"><!--
-	jQuery(document).ready(function(){ jQuery('#hometext').markItUp(news_embed_markitup_bbcodeset); })
-	jQuery(document).ready(function(){ jQuery('#bodytext').markItUp(news_embed_markitup_bbcodeset); })
-//--></script>

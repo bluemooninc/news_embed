@@ -77,22 +77,22 @@ class news_AbstractEditAction extends news_Action
 	function getDefaultView(&$controller, &$xoopsUser)
 	{
 		if ($this->mObject == null) {
-			return BMCART_FRAME_VIEW_ERROR;
+			return NEWS_FRAME_VIEW_ERROR;
 		}
 	
 		$this->mActionForm->load($this->mObject);
 		
-		return BMCART_FRAME_VIEW_INPUT;
+		return NEWS_FRAME_VIEW_INPUT;
 	}
 
 	function execute(&$controller, &$xoopsUser)
 	{
 		if ($this->mObject == null) {
-			return BMCART_FRAME_VIEW_ERROR;
+			return NEWS_FRAME_VIEW_ERROR;
 		}
 	
 		if (xoops_getrequest('_form_control_cancel') != null) {
-			return BMCART_FRAME_VIEW_CANCEL;
+			return NEWS_FRAME_VIEW_CANCEL;
 		}
 
 		$this->mActionForm->load($this->mObject);
@@ -100,11 +100,11 @@ class news_AbstractEditAction extends news_Action
 		$this->mActionForm->fetch();
 		$this->mActionForm->validate();
 		if($this->mActionForm->hasError()) {
-			return BMCART_FRAME_VIEW_INPUT;
+			return NEWS_FRAME_VIEW_INPUT;
 		}
 		$this->mActionForm->update($this->mObject);
-		return $this->_doExecute($this->mObject) ? BMCART_FRAME_VIEW_SUCCESS
-		                                         : BMCART_FRAME_VIEW_ERROR;
+		return $this->_doExecute($this->mObject) ? NEWS_FRAME_VIEW_SUCCESS
+		                                         : NEWS_FRAME_VIEW_ERROR;
 	}
 
 	/**
