@@ -16,6 +16,7 @@ class Controller_Article extends AbstractAction {
 	protected $topicObject = null;
 	protected $userObject = null;
 	protected $filesObjects = null;
+	protected $mActionForm = null;
 	public function action_index(){
 		$this->template = 'news_article.html';
 		$story_id = $this->root->mContext->mRequest->getRequest( 'storyid' );
@@ -44,7 +45,9 @@ class Controller_Article extends AbstractAction {
 		$view->set('topicObject', $this->topicObject);
 		$view->set('userObject', $this->userObject);
 		$view->set('filesObjects', $this->filesObjects);
-		$view->set('actionForm', $this->mActionForm);
+		if ($this->mActionForm){
+			$view->set('actionForm', $this->mActionForm);
+		}
 
 		// for comment section
 		$this->_comment_view();

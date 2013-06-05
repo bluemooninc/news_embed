@@ -50,24 +50,16 @@ $modversion['adminindex'] = "admin/index.php";
 $modversion['adminmenu'] = "admin/menu.php";
 
 // Templates
-$modversion['templates'][1]['file'] = 'news_item.html';
-$modversion['templates'][1]['description'] = '';
-$modversion['templates'][2]['file'] = 'news_archive.html';
-$modversion['templates'][2]['description'] = '';
-$modversion['templates'][3]['file'] = 'news_article.html';
-$modversion['templates'][3]['description'] = '';
-$modversion['templates'][4]['file'] = 'news_index.html';
-$modversion['templates'][4]['description'] = '';
-$modversion['templates'][5]['file'] = 'news_by_topic.html';
-$modversion['templates'][5]['description'] = '';
-$modversion['templates'][6]['file'] = 'news_by_this_author.html';
-$modversion['templates'][6]['description'] = 'Shows a page resuming all the articles of the same author (according to the perms)';
-$modversion['templates'][7]['file'] = 'news_ratenews.html';
-$modversion['templates'][7]['description'] = 'Template used to rate a news';
-$modversion['templates'][8]['file'] = 'news_rss.html';
-$modversion['templates'][8]['description'] = 'Used for RSS per topics';
-$modversion['templates'][9]['file'] = 'news_submit.html';
-$modversion['templates'][9]['description'] = 'Submit news';
+$modversion['templates'][1] = array('file' => 'news_item.html','description' => '');
+$modversion['templates'][2] = array('file' => 'news_archive.html','description' => '');
+$modversion['templates'][3] = array('file' => 'news_article.html','description' => '');
+$modversion['templates'][4] = array('file' => 'news_index.html','description' => '');
+$modversion['templates'][5] = array('file' => 'news_by_topic.html','description' => '');
+$modversion['templates'][6] = array('file' => 'news_by_this_author.html','description' => 'Shows a page resuming all the articles of the same author (according to the perms)');
+$modversion['templates'][7] = array('file' => 'news_ratenews.html','description' => 'Template used to rate a news');
+$modversion['templates'][8] = array('file' => 'news_rss.html', 'description' => 'Used for RSS per topics');
+$modversion['templates'][9] = array('file' => 'news_submit.html' , 'description' => 'Submit news');
+$modversion['templates'][10] = array('file' => 'delete_attached.html','description' => 'Delete attaced file');
 
 // Blocks
 $modversion['blocks'][1]['file'] = "news_topics.php";
@@ -166,7 +158,7 @@ if (is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $modversion['d
 			foreach ($topics_arr as $onetopic) {
 				if ($gperm_handler->checkRight('news_view', $onetopic->topic_id(), $groups, $xoopsModule->getVar('mid')) && $onetopic->menu()) {
 	            	$modversion['sub'][$i]['name'] = $onetopic->topic_title();
-  					$modversion['sub'][$i]['url'] = "index.php?storytopic=" . $onetopic->topic_id();
+  					$modversion['sub'][$i]['url'] = "app/index.php?topicid=" . $onetopic->topic_id();
    				}
        			$i++;
    			}
@@ -176,11 +168,11 @@ if (is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $modversion['d
 }
 
 $modversion['sub'][$i]['name'] = _MI_NEWS_SMNAME2;
-$modversion['sub'][$i]['url'] = "archive.php";
+$modversion['sub'][$i]['url'] = "app/archive.php";
 if ($cansubmit) {
 	$i++;
     $modversion['sub'][$i]['name'] = _MI_NEWS_SMNAME1;
-    $modversion['sub'][$i]['url'] = "submit.php";
+    $modversion['sub'][$i]['url'] = "app/submit.php";
 }
 unset($cansubmit);
 

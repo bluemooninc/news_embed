@@ -35,7 +35,8 @@ class Model_Article extends AbstractModel
 		}
 		return $instance;
 	}
-
+	//
+	// stories
 	public function &get_story($story_id=0){
 		if ($story_id){
 			return $this->storyHandler->get($story_id);
@@ -43,6 +44,19 @@ class Model_Article extends AbstractModel
 			return $this->storyHandler->create();
 		}
 	}
+	public function &get_stories($topic_id=0,$uid=0){
+		$criteria = new CriteriaCompo();
+		if ($topic_id>0){
+			$criteria->add(new Criteria("topicid",$topic_id));
+		}
+		if ($uid>0){
+			$criteria->add(new Criteria("uid",$uid));
+		}
+		$criteria->addSort('published');
+		$criteria->addSort('created');
+		return $this->storyHandler->getObjects($criteria);
+	}
+	// topics
 	public function &get_topic($topic_id=0){
 		if ($topic_id){
 			return $this->topicHandler->get($topic_id);
@@ -50,6 +64,10 @@ class Model_Article extends AbstractModel
 			return $this->topicHandler->create();
 		}
 	}
+	public function &get_topics(){
+		return $this->topicHandler->getObjects();
+	}
+
 	public function &get_files($story_id=0){
 		$filesHandler = xoops_getmodulehandler('stories_files');
 		$criteria = new Criteria('storyid',$story_id);

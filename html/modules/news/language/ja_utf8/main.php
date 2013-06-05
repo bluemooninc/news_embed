@@ -107,3 +107,8 @@ define("_MD_POST_SORRY","すみません、トピックが無いか、投稿許�
 
 // Action Form
 define("_MD_NEWS_ERROR_REQUIRED","入力必須項目");
+define("_MD_NEWS_ATTACHFILE","添付ファイル");
+define("_MD_NEWS_STORY_ID","記事ID");
+define("_MD_NEWS_ATTACH_ID","添付ID");
+define("_MD_NEWS_TITLE","記事タイトル");
+define("_MD_NEWS_ERROR_MAXLENGTH","最大文字長");

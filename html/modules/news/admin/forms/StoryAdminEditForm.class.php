@@ -34,18 +34,17 @@ class news_StoryAdminEditForm extends XCube_ActionForm
 		$this->mFormProperties['created'] =new XCube_IntProperty('created');
 		$this->mFormProperties['published'] =new XCube_StringProperty('published');
 		$this->mFormProperties['expired'] =new XCube_StringProperty('expired');
-
 		//
 		// Set field properties
 		//
 		$this->mFieldProperties['storyid'] =new XCube_FieldProperty($this);
 		$this->mFieldProperties['storyid']->setDependsByArray(array('required'));
-		$this->mFieldProperties['storyid']->addMessage('required', _MD_NEWS_ERROR_REQUIRED, _MD_NEWS_STORYID);
+		$this->mFieldProperties['storyid']->addMessage('required', _MD_NEWS_ERROR_REQUIRED, _MD_NEWS_STORY_ID);
 	
 		$this->mFieldProperties['title'] =new XCube_FieldProperty($this);
 		$this->mFieldProperties['title']->setDependsByArray(array('required','maxlength'));
-		$this->mFieldProperties['title']->addMessage('required', _MD_NEWS_ERROR_REQUIRED, _AD_NEWS_STORY_NAME, '255');
-		$this->mFieldProperties['title']->addMessage('maxlength', _MD_NEWS_ERROR_MAXLENGTH, _AD_NEWS_STORY_NAME, '255');
+		$this->mFieldProperties['title']->addMessage('required', _MD_NEWS_ERROR_REQUIRED, _MD_NEWS_TITLE, '255');
+		$this->mFieldProperties['title']->addMessage('maxlength', _MD_NEWS_ERROR_MAXLENGTH, _MD_NEWS_TITLE, '255');
 		$this->mFieldProperties['title']->addVar('maxlength', '255');
 
 	}

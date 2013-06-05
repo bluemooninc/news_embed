@@ -11,9 +11,9 @@ require_once XOOPS_MODULE_PATH . "/legacy/class/Legacy_Validator.class.php";
 
 class news_AttachAdminEditForm extends XCube_ActionForm
 {
-	var $mOldFileName = null;
-	var $_mIsNew = false;
-	var $mFormFile = null;
+	var $mOldFileName = NULL;
+	var $_mIsNew = FALSE;
+	var $mFormFile = NULL;
 	var $mUploadDir;
 
 	function getTokenName()
@@ -27,7 +27,7 @@ class news_AttachAdminEditForm extends XCube_ActionForm
 	 */
 	function getTokenErrorMessage()
 	{
-		return null;
+		return NULL;
 	}
 
 	function prepare()
@@ -63,22 +63,30 @@ class news_AttachAdminEditForm extends XCube_ActionForm
 	{
 		$obj->set('fileid', $this->get('fileid'));
 		$obj->set('storyid', $this->get('storyid'));
-		$fileUploder = $this->_getUploadFile();
-		if ($fileUploder) {
-			$obj->set('mimetype', $fileUploder->getContentType());
-			$obj->set('filerealname', $fileUploder->getFileName());
-		} else {
+		$fileUploder = $this->_getUploadFile($obj);
+		if (!$fileUploder) {
 			$obj->set('filerealname', $this->get('filerealname'));
 		}
 	}
 
-	private function &_getUploadFile()
+	/**
+	 * Get upload file
+	 * @param $obj
+	 * @return XCube_FormFile
+	 */
+	function &_getUploadFile(&$obj)
 	{
 		$fileUploder = new XCube_FormFile('downloadname');
 		$fileUploder->fetch();
 		if ($fileUploder->hasUploadFile()) {
+			$obj->set('mimetype', $fileUploder->getContentType());
+			// set before rename
+			$obj->set('downloadname', $fileUploder->getFileName());
 			$fname = sprintf("news%d_",$this->get('storyid'));
 			$fileUploder->saveAsRandBody($this->mUploadDir, $fname);
+			// set aftre rename
+			$obj->set('filerealname', $fileUploder->getFileName());
+			$obj->set('date', time());
 		}
 		return $fileUploder;
 	}

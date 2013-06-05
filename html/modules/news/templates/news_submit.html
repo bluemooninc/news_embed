@@ -1,5 +1,5 @@
 <h1><{$smarty.const._MD_SUBMITNEWS}></h1>
-<form action="?action=StoryEdit" method="post">
+<form action="?action=StoryEdit" method="post" enctype="multipart/form-data">
 	<{xoops_token form=$actionForm}>
 	<{xoops_input type=hidden name=storyid value=$actionForm->get('storyid')}>
 	<table class="table">
@@ -32,6 +32,26 @@
 		<tr>
 			<td colspan="2"><{$smarty.const._MD_EXTEXT}><br />
 			<{xoops_dhtmltarea name=bodytext value=$actionForm->get('bodytext')}>
+			</td>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._MD_NEWS_ATTACHFILE}></td>
+			<td class="<{cycle values='odd,even'}>">
+				<{if $filesObjects}>
+				<{foreach item=filesObject from=$filesObjects }>
+				<{if $filesObject->getShow('downloadname')}>
+				<a href="<{$xoops_url}>/modules/news/download.php?url=/<{$filesObject->getShow('downloadname')}>&filename=<{$filesObject->getShow('filerealname')}>">
+					<i class="icon-download"></i>
+					<{$filesObject->getShow('downloadname')}>
+				</a>
+				&nbsp;
+				<a href="<{$xoops_url}>/modules/news/DeleteAttached.php?fileid=<{$filesObject->getShow('fileid')}>">
+					<i class="icon-trash"></i>
+				</a><br />
+				<{/if}>
+				<{/foreach}>
+				<{/if}>
+				<input type="file" name="downloadname" size="50">
 			</td>
 		</tr>
 		<tr>
