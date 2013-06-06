@@ -28,7 +28,7 @@ class news_AttachAdminDeleteForm extends XCube_ActionForm
 		//
 		$this->mFieldProperties['fileid'] =new XCube_FieldProperty($this);
 		$this->mFieldProperties['fileid']->setDependsByArray(array('required'));
-		$this->mFieldProperties['fileid']->addMessage('required', _MD_NEWS_ERROR_REQUIRED, _MD_NEWS_ATTACH_ID);
+		$this->mFieldProperties['fileid']->addMessage('required', _MD_NEWS_ERROR_REQUIRED, _MD_NEWS_ATTACHE_ID);
 	}
 
 	function load(&$obj)

@@ -49,7 +49,7 @@ define("_AD_ADD","Add");
 //%%%%%%	Admin Module Name  Topics 	%%%%%
 
 define("_AD_ADDMTOPIC","Add a MAIN Topic");
-define("_AD_TOPICNAME","Topic Name");
+define("_AD_TOPIC_TITLE","Topic Name");
 // Warning, changed from 40 to 255 characters.
 define("_AD_MAX40CHAR","(max: 255 characters)");
 define("_AD_TOPICIMG","Topic Image");

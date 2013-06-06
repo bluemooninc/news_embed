@@ -55,7 +55,9 @@ class Controller_Submit extends AbstractAction {
 			if($this->mActionForm->hasError()) {
 				return NEWS_FRAME_VIEW_INPUT;
 			}
-			$this->mActionForm->update($object);
+			// for storyObject
+			$this->mActionForm->update($object);    // get From POST
+			$this->mModel->set_story($object);      // Save to DB
 			// for Attach file
 			$this->_setupAttachActionForm($object);
 		}

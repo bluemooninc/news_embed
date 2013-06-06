@@ -15,7 +15,7 @@
 	<{foreach item=story from=$storyObjects}>
 	<li>
 		<a href="<{$xoops_url}>/modules/news/app/article.php?storyid=<{$story->getVar('storyid')}>">
-			<{$story->getVar('published')|date_format}>: <{$story->getVar('title')}>
+			<{$story->getVar('published')|date_format:"%G-%m-%d"}>: <{$story->getVar('title')}>
 		</a>
 	</li>
 	<{/foreach}>

@@ -49,7 +49,9 @@ define("_AD_ADD","追加");
 //%%%%%%        Admin Module Name  Topics       %%%%%
 
 define("_AD_ADDMTOPIC","メイントピックの作成");
-define("_AD_TOPICNAME","トピック名");
+define("_AD_TOPIC_ID","トピックID");
+define("_AD_TOPIC_TITLE","トピック名");
+define("_AD_TOPIC_PID","親トピックID");
 // Warning, changed from 40 to 255 characters.
 define("_AD_MAX40CHAR","（最大255文字（半角））");
 define("_AD_TOPICIMG","トピック画像");
@@ -67,7 +69,7 @@ define("_AD_WAYSYWTDTTAL","このトピックおよびこのトピック内の�
 
 
 // Added in Beta6
-define("_AD_TOPICSMNGR","トピック管理メニュー");
+define("_AD_TOPICSMNGR","トピック管理");
 define("_AD_PEARTICLES","ニュース記事の投稿／編集");
 define("_AD_NEWSUB","新規投稿ニュース");
 define("_AD_POSTED","投稿日時");
@@ -179,15 +181,18 @@ define('_AD_NEWS_PLEASE_UPGRADE',"<a href='upgrade.php'><font color='#FF0000'>�
 define("_MD_NEWS_ERROR_REQUIRED","入力必須項目");
 define("_MD_NEWS_ATTACHFILE","添付ファイル");
 define("_MD_NEWS_STORY_ID","記事ID");
-define("_MD_NEWS_ATTACH_ID","添付ID");
+define("_MD_NEWS_ATTACHE_ID","添付ID");
 define("_MD_NEWS_TITLE","記事タイトル");
 define("_MD_NEWS_ERROR_MAXLENGTH","最大文字長");
 
 // attach file
-define("_AD_NEWS_ATTACH_LIST","記事へのファイル添付");
-define("_AD_NEWS_ATTACH_NEW","新しいファイルの添付");
-define("_AD_NEWS_ATTACH_ID","添付ID");
+define("_AD_NEWS_ATTACHE_LIST","記事へのファイル添付");
+define("_AD_NEWS_ATTACHE_NEW","新しいファイルの添付");
+define("_AD_NEWS_ATTACHE_ID","添付ID");
 define("_AD_NEWS_STORY_ID","記事ID");
 define("_AD_NEWS_MIME","MIME");
+define("_AD_NEWS_ATTACHE_DELETE","ファイル削除");
 define("_AD_NEWS_ATTACHFILE","ファイル名");
+define("_AD_NEWS_REALNAME","サーバ上のファイル名");
+define("_AD_NEWS_DOWNLOADNAME","ダウンロード時のファイル名");
 define("_AD_NEWS_CONTROL","操作");

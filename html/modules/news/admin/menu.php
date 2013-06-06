@@ -24,11 +24,10 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-
 $adminmenu[1]['title'] = _MI_NEWS_ADMENU2;
-$adminmenu[1]['link'] = "admin/index.php?op=topicsmanager";
+$adminmenu[1]['link'] = "admin/index.php?action=TopicList";
 $adminmenu[2]['title'] = _MI_NEWS_ADMENU3;
-$adminmenu[2]['link'] = "admin/index.php?op=newarticle";
+$adminmenu[2]['link'] = "admin/index.php?action=StoryList";
 $adminmenu[3]['title'] = _MI_NEWS_GROUPPERMS;
 $adminmenu[3]['link'] = "admin/groupperms.php";
 $adminmenu[4]['title'] = _MI_NEWS_PRUNENEWS;

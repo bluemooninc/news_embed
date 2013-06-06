@@ -1,0 +1,44 @@
+<div class="adminnavi">
+	<a href="./index.php"><{$smarty.const._MI_NEWS_NAME}></a>
+	&raquo;&raquo;<span class="adminnaviTitle"><a href="./index.php?action=StoryList"><{$smarty.const._AD_TOPICSMNGR}></a></span>
+	&raquo;&raquo;<span class="adminnaviTitle"><{$smarty.const._AD_DELETE}></span>
+</div>
+
+<h3 class="admintitle"><{$smarty.const._AD_NEWS_TOPIC_DELETE}> (<{$object->getShow('storyname')}>)</h3>
+<{*
+<div class="confirm"><{$smarty.const._AD_RUSUREDEL}></div>
+*}>
+<{if $actionForm->hasError()}>
+<div class="error">
+  <ul>
+    <{foreach item=message from=$actionForm->getErrorMessages()}>
+      <li><{$message|xoops_escape}></li>
+    <{/foreach}>
+  </ul>
+</div>
+<{/if}>
+
+<form action="?action=TopicDelete" method="post">
+<{xoops_token form=$actionForm}>
+<{xoops_input type=hidden name=topic_id value=$object->get('topic_id')}>
+<table class="outer">
+  <tr>
+    <td class="head"><{$smarty.const._AD_TOPIC_ID}></td>
+    <td class="<{cycle values='odd,even'}>"><{$object->getShow('topic_id')}></td>
+  </tr>
+  <tr>
+    <td class="head"><{$smarty.const._AD_TOPIC_TITLE}></td>
+    <td class="<{cycle values='odd,even'}>"><{$object->getShow('topic_title')}></td>
+  </tr>
+  <tr>
+    <td class="head"><{$smarty.const._AD_TOPIC_PID}></td>
+    <td class="<{cycle values='odd,even'}>"><{$object->getShow('topic_pid')}></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="foot">
+        <input class="formButton" type="submit" value="<{$smarty.const._DELETE}>" />
+        <input class="formButton" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel" />
+    </td>
+  </tr>
+</table>
+</form>

@@ -620,7 +620,7 @@ function topicsmanager()
 	echo "<div id='topicsmanager'>";
 	echo "<br />";
     echo "<div style='text-align: center;'>";
-    echo "<table width='100%' cellspacing='1' cellpadding='3' border='0' class='outer'><tr class='bg3'><td align='center'>" . _AD_TOPIC . "</td><td align='left'>" . _AD_TOPICNAME . "</td><td align='center'>" . _AD_PARENTTOPIC . "</td><td align='center'>" . _AD_SUB_MENU_YESNO . "</td><td align='center'>" . _AD_ACTION . "</td></tr>";
+    echo "<table width='100%' cellspacing='1' cellpadding='3' border='0' class='outer'><tr class='bg3'><td align='center'>" . _AD_TOPIC . "</td><td align='left'>" . _AD_TOPIC_TITLE . "</td><td align='center'>" . _AD_PARENTTOPIC . "</td><td align='center'>" . _AD_SUB_MENU_YESNO . "</td><td align='center'>" . _AD_ACTION . "</td></tr>";
 	if(is_array($topics_arr) && $totaltopics) {
 		$cpt=1;
 		$tmpcpt=$start;
@@ -695,7 +695,7 @@ function topicsmanager()
 
 	$sform = new XoopsThemeForm($formlabel, "topicform", XOOPS_URL.'/modules/'.$xoopsModule->getVar('dirname').'/admin/index.php', 'post');
 	$sform->setExtra('enctype="multipart/form-data"');
-	$sform->addElement(new XoopsFormText(_AD_TOPICNAME, 'topic_title', 50, 255, $topic_title), true);
+	$sform->addElement(new XoopsFormText(_AD_TOPIC_TITLE, 'topic_title', 50, 255, $topic_title), true);
 	$editor=news_getWysiwygForm(_AD_TOPIC_DESCR,'topic_description', $topic_description, 15, 60, 'hometext_hidden');
 	if($editor) {
 		$sform->addElement($editor,false);

@@ -46,7 +46,7 @@ class news_AbstractListAction extends news_Action
 		$handler =& $this->_getHandler();
 		$this->mObjects =& $handler->getObjects($this->mFilter->getCriteria());
 
-		return BMCART_FRAME_VIEW_INDEX;
+		return NEWS_FRAME_VIEW_INDEX;
 	}
 }
 

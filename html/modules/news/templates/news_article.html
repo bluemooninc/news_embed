@@ -33,7 +33,7 @@
 <{if $filesObjects}>
 	<{foreach item=filesObject from=$filesObjects }>
 	<{if $filesObject->getShow('downloadname')}>
-	<a href="<{$xoops_url}>/modules/news/download.php?url=/<{$filesObject->getShow('downloadname')}>&filename=<{$filesObject->getShow('filerealname')}>">
+	<a href="<{$xoops_url}>/modules/news/download.php?url=<{$filesObject->getShow('downloadname')}>&filename=<{$filesObject->getShow('filerealname')}>">
 		<i class="icon-download"></i>
 		<{$filesObject->getShow('downloadname')}>
 	</a><br />

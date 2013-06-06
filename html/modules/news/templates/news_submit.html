@@ -40,7 +40,7 @@
 				<{if $filesObjects}>
 				<{foreach item=filesObject from=$filesObjects }>
 				<{if $filesObject->getShow('downloadname')}>
-				<a href="<{$xoops_url}>/modules/news/download.php?url=/<{$filesObject->getShow('downloadname')}>&filename=<{$filesObject->getShow('filerealname')}>">
+				<a href="<{$xoops_url}>/modules/news/download.php?url=<{$filesObject->getShow('downloadname')}>&filename=<{$filesObject->getShow('filerealname')}>">
 					<i class="icon-download"></i>
 					<{$filesObject->getShow('downloadname')}>
 				</a>
@@ -68,13 +68,12 @@
 		</tr>
 		<tr>
 			<td colspan="2" class="foot">
-				<input class="btn" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel"/>
-				<input class="btn btn-primary" type="submit" value="<{$smarty.const._SUBMIT}>"/>
+				<a class="btn" href="<{$xoops_url}>/modules/news/app/article.php?storyid=<{$actionForm->get('storyid')}>"><{$smarty.const._MD_NEWS_VIEW_STORY}></a>
+				<input class="btn btn-primary" type="submit" value="<{$smarty.const._MD_NEWS_SAVE_STORY}>"/>
 			</td>
 		</tr>
 	</table>
 </form>
-
 
 <div id="news-wrapper">
 	<h1><{$lang_pagetitle}><{if $action == "preview"}> (<{$lang_pagesubtitle}>)<{/if}></h1>
@@ -95,19 +94,4 @@
 		<{/if}>
 		<{$formset}>
 	</div>
-	<{if $xoops_isuser}>
-	<div class="news-usrnav">
-		<{$smarty.const._MD_SUBMITNEWS}></a> | <a href="admin/"><{$smarty.const._MD_GOTOMODULEADMIN}></a>
-	</div>
-	<{/if}>
-	<!--div class="news-nav">
-	<{if $nav_links}>
-		<{if $previous_story_id != -1}>
-		<a id="news-nav-pre" href='article.php?storyid=<{$previous_story_id}>' title="<{$previous_story_title}>" target="_top"><{$lang_previous_story}></a>
-		<{/if}>
-		<{if $next_story_id!= -1}>
-		<a id="news-nav-next" href='article.php?storyid=<{$next_story_id}>' title="<{$next_story_title}>"><{$lang_next_story}></a>
-		<{/if}>
-	<{/if}>
-	</div-->
 </div>

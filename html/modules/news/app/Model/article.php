@@ -56,7 +56,11 @@ class Model_Article extends AbstractModel
 		$criteria->addSort('created');
 		return $this->storyHandler->getObjects($criteria);
 	}
-	// topics
+	public function set_story(&$object){
+		$this->storyHandler->insert($object);
+	}
+
+		// topics
 	public function &get_topic($topic_id=0){
 		if ($topic_id){
 			return $this->topicHandler->get($topic_id);
@@ -68,12 +72,25 @@ class Model_Article extends AbstractModel
 		return $this->topicHandler->getObjects();
 	}
 
+	public function &get_file($file_id=0){
+		$fileObject = $this->filesHandler->get($file_id);
+		return $fileObject;
+	}
 	public function &get_files($story_id=0){
-		$filesHandler = xoops_getmodulehandler('stories_files');
 		$criteria = new Criteria('storyid',$story_id);
-		$filesObjects = $filesHandler->getObjects($criteria);
+		$filesObjects = $this->filesHandler->getObjects($criteria);
 		return $filesObjects;
 	}
+	public function delete_file(&$attachObject)
+	{
+		if(!$attachObject) return;
+		$original_filename = XOOPS_ROOT_PATH."/uploads/".$attachObject->getVar('realfilename');
+		if (file_exists($original_filename)){
+			unlink($original_filename);
+		}
+		$this->filesHandler->delete($attachObject);
+	}
+
 	public function &get_user($uid){
 		$userHandler = xoops_getmodulehandler('users','user');
 		return $userHandler->get($uid);

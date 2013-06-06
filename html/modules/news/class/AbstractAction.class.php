@@ -38,11 +38,11 @@ class Gmopg_AbstractAction
 	}
 
 	function getDefaultView(){
-		return BMCART_FRAME_VIEW_NONE;
+		return NEWS_FRAME_VIEW_NONE;
 	}
 
 	function execute(){
-		return BMCART_FRAME_VIEW_NONE;
+		return NEWS_FRAME_VIEW_NONE;
 	}
 
 	function executeViewSuccess(&$controller,&$render){

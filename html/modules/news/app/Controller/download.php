@@ -80,16 +80,5 @@ class Controller_Download extends AbstractAction
 			usleep(10000);
 		}
 		fclose($fp);
-
-//
-// Save download log
-//
-		if ($xoopsUser) $uname = $xoopsUser->getVar('uname'); else $uname = "Anonymous";
-		$str = $uname . "," . date("Y-m-d H:i:s", time());
-		$postlog = $downloadname . '.log';
-		$fp = fopen($postlog, 'a');
-		fwrite($fp, $str . "\n");
-		fclose($fp);
-
 	}
 }

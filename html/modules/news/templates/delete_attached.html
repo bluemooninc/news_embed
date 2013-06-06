@@ -1,1 +1,40 @@
-<h1>hoge</h1>
+<form action="?action=AttachDelete" method="post">
+	<{xoops_token form=$actionForm}>
+	<{xoops_input type=hidden name=fileid value=$fileObject->get('fileid')}>
+	<{xoops_input type=hidden name=storyid value=$fileObject->get('storyid')}>
+	<table class="outer">
+		<tr>
+			<td class="head"><{$smarty.const._AD_NEWS_ATTACHE_ID}></td>
+			<td class="<{cycle values='odd,even'}>"><{$fileObject->getShow('fileid')}></td>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._AD_NEWS_STORY_ID}></td>
+			<td class="<{cycle values='odd,even'}>"><{$fileObject->get('storyid')}></td>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._AD_NEWS_MIME}></td>
+			<td class="<{cycle values='odd,even'}>">
+				<{$fileObject->getShow('mimetype')}>
+			</td>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._AD_NEWS_REALNAME}></td>
+			<td class="<{cycle values='odd,even'}>">
+				<{$fileObject->getShow('filerealname')}>
+			</td>
+		</tr>
+		<tr>
+			<td class="head"><{$smarty.const._AD_NEWS_DOWNLOADNAME}></td>
+			<td class="<{cycle values='odd,even'}>">
+				<{$fileObject->getShow('downloadname')}>
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="2" class="foot">
+				<input class="formButton" type="submit" value="<{$smarty.const._DELETE}>"/>
+				<input class="formButton" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel"/>
+			</td>
+		</tr>
+	</table>
+</form>
