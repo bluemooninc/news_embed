@@ -54,7 +54,8 @@ class Model_Article extends AbstractModel
 		}
 		$criteria->addSort('published');
 		$criteria->addSort('created');
-		return $this->storyHandler->getObjects($criteria);
+		$objects = $this->storyHandler->getObjects($criteria);
+		return $objects;
 	}
 	public function set_story(&$object){
 		$this->storyHandler->insert($object);

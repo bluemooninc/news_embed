@@ -1,14 +1,30 @@
-<h1><{$smarty.const._MD_NEWSRELEASE}></h1>
+<h1><{$topicObject->getVar('topic_title')}> <{$smarty.const._MD_NEWSRELEASE}></h1>
 <{if $userObject}>
 	<h2><{$userObject->getShow('uname')|xoops_escape}> News</h2>
 <{/if}>
 <{* if $topic_title}> - <{$topic_title}><{else}> - <{$smarty.const._MD_ALLTOPIC}><{/if *}>
 
-<{foreach item=topic from=$topicObjects}>
-	<a class="label" href="<{$xoops_url}>/modules/news/app/news.php?topicid=<{$topic->getVar('topic_id')}>">
-		<{$topic->getVar('topic_title')}>
+
+<div class="bs-docs-example">
+<ul class="nav nav-pills">
+<{foreach item=topic from=$topicArray}>
+	<li class="<{if $topic[$topic_id]}>active <{/if}><{if $topic.child}>dropdown <{/if}>">
+	<{if $topic.child}>
+		<a href="#" data-toggle="dropdown" role="button" id="drop<{$topic.topic_id}>" class="dropdown-toggle"><{$topic.topic_title}><b class="caret"></b></a>
+		<ul aria-labelledby="drop<{$topic.topic_id}>" role="menu" class="dropdown-menu" id="menu<{$topic.topic_id}>">
+			<{foreach item=child from=$topic.child}>
+			<li role="presentation"><a href="<{$xoops_url}>/modules/news/app/news.php?topicid=<{$child.topic_id}>" tabindex="-1" role="menuitem"><{$child.topic_title}></a></li>
+			<{/foreach}>
+		</ul>
+	<{else}>
+	<a class="label" href="<{$xoops_url}>/modules/news/app/news.php?topicid=<{$topic.topic_id}>">
+		<{$topic.topic_title}>
 	</a>
+	<{/if}>
+	</li>
 <{/foreach}>
+</ul> <!-- /tabs -->
+</div>
 
 
 <ul>

@@ -1,10 +1,10 @@
+
 <div class="adminnavi">
-	<div class="adminnavi">
-		<a href="./index.php"><{$smarty.const._MI_NEWS_NAME}></a>
+	<a href="./index.php"><{$smarty.const._MI_NEWS_NAME}></a>
 		&raquo;&raquo; <span class="adminnaviTitle"><a href="./index.php?action=StoryList"><{$smarty.const._AD_TOPICSMNGR}></a></span>
 		&raquo;&raquo; <span class="adminnaviTitle"><{$smarty.const._AD_EDIT}></span>
-	</div>
 </div>
+
 
 <{if $actionForm->get('topic_id') }>
 <h3 class="admintitle"><{$smarty.const._AD_EDIT}> (<{$actionForm->get('topic_title')}>)</h3>
