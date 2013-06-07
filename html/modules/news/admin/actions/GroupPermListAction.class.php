@@ -90,6 +90,7 @@ class news_GroupPermListAction extends news_AbstractListAction
 			$gPermArray[$gPermObject->getVar('gperm_groupid')][$gPermObject->getVar('gperm_itemid')] = 1;
 		}
 		$render->setTemplateName("groupPerm_list.html");
+		$render->setAttribute("permNumber", $this->permNumber);
 		$render->setAttribute("gPermArray", $gPermArray);
 		$render->setAttribute("topicArray",$this->getTopicArray());
 		$render->setAttribute("groupArray",$this->getGroupArray());

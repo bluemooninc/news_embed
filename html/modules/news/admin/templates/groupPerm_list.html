@@ -7,16 +7,20 @@
 <{*
 <div class="tips"><{$smarty.const._AD_NEWS_TIPS_STORY_EDIT}></div>
 *}>
+		
+<p>
+<div class="btn-group" data-toggle="buttons-radio">
+<a class="btn<{if $permNumber==1}> btn-info<{/if}>" href="?action=GroupPermList&amp;permNumber=1"><{$smarty.const._AD_APPROVEFORM}></a>
+<a class="btn<{if $permNumber==2}> btn-info<{/if}>" href="?action=GroupPermList&amp;permNumber=2"><{$smarty.const._AD_SUBMITFORM}></a>
+<a class="btn<{if $permNumber==3}> btn-info<{/if}>" href="?action=GroupPermList&amp;permNumber=3"><{$smarty.const._AD_VIEWFORM}></a>
+</div>
+</p>
 
-<a class="btn" href="?action=GroupPermList&amp;permNumber=1"><{$smarty.const._AD_APPROVEFORM}></a>
-<a class="btn" href="?action=GroupPermList&amp;permNumber=2"><{$smarty.const._AD_SUBMITFORM}></a>
-<a class="btn" href="?action=GroupPermList&amp;permNumber=3"><{$smarty.const._AD_VIEWFORM}></a>
+<form action="?action=groupPerm" method="post">
+	<{xoops_token form=$actionForm}>
+	<{xoops_input type=hidden name=permNumber value=$permNumber}>
 
-<ul class="toptab">
-	<li class="add"><a href="index.php?action=TopicEdit"><{$smarty.const._AD_ADD_TOPIC}></a></li>
-</ul>
-
-<table class="outer">
+<table class="table">
 	<tr>
 		<th><{$smarty.const._AD_GROUP_TITLE}>
 			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ITEM_SORT_KEY_UPDATE}>"><i class="icon-up"></i></a>
@@ -26,31 +30,23 @@
 			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.ITEM_SORT_KEY_gperm}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
 			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ITEM_SORT_KEY_gperm}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
 		</th>
-		<th><{$smarty.const._AD_ACTION}></th>
 	</tr>
-	<{foreach item=topic_ids key=group_id from=$gPermArray}>
-	<tr class="<{cycle values='odd,even'}>">
+	<{* foreach item=topic_ids key=group_id from=$gPermArray *}>
+	<{foreach item=group_name key=group_id from=$groupArray}>
+	<tr">
 		<!-- gid,gname,permission name -->
-		<td class="item_list_title">
-			(<{$group_id}>)<{$groupArray[$group_id]}>
+		<td>
+			(<{$group_id}>)<{$group_name}>
 		</td>
-		<td class="item_list_title">
+		<td>
 			<{foreach item=object from=$topicObjects}>
 				<{assign var=topicId value=$object->getShow('topic_id')}>
-				<{xoops_input type=checkbox name=topic_ids[] value=1 default=$topic_ids[$topicId]}>
+				<{xoops_input type=checkbox name=topic_ids[$group_id][] value=1 default=$gPermArray[$group_id][$topicId]}>
 				<{$topicArray[$topicId]}>
 			<{/foreach}>
-		</td>
-		<td class="item_list_control">
-			<a href="index.php?action=TopicEdit&amp;gperm_id=<{$gperm[2]}>">
-				<img src="<{"icons/edit.png"|theme}>" alt="<{$smarty.const._EDIT}>" title="<{$smarty.const._EDIT}>" />
-			</a>
-			<a href="index.php?action=TopicDelete&amp;gperm_id=<{$gperm[2]}>">
-				<img src="<{"icons/delete.png"|theme}>" alt="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>" />
-			</a>
 		</td>
 	</tr>
 	<{/foreach}>
 </table>
-
-<div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
+<input class="btn btn-primary" type="submit" value="<{$smarty.const.UPDATE}>"/>
+</form>
