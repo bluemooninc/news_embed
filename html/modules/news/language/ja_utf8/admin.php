@@ -196,3 +196,6 @@ define("_AD_NEWS_ATTACHFILE","ファイル名");
 define("_AD_NEWS_REALNAME","サーバ上のファイル名");
 define("_AD_NEWS_DOWNLOADNAME","ダウンロード時のファイル名");
 define("_AD_NEWS_CONTROL","操作");
+
+// permission
+define("_AD_GROUP_TITLE","ユーザ・グループ");

@@ -145,6 +145,10 @@ class news_ActionFrame
 
 class news_Action
 {
+	protected $root;
+	function __construct(){
+		$this->root = XCube_Root::getSingleton();
+	}
 	function news_Action()
 	{
 	}

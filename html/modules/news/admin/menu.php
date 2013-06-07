@@ -29,14 +29,7 @@ $adminmenu[1]['link'] = "admin/index.php?action=TopicList";
 $adminmenu[2]['title'] = _MI_NEWS_ADMENU3;
 $adminmenu[2]['link'] = "admin/index.php?action=StoryList";
 $adminmenu[3]['title'] = _MI_NEWS_GROUPPERMS;
-$adminmenu[3]['link'] = "admin/groupperms.php";
-$adminmenu[4]['title'] = _MI_NEWS_PRUNENEWS;
-$adminmenu[4]['link'] = "admin/index.php?op=prune";
-$adminmenu[5]['title'] = _MI_NEWS_EXPORT;
-$adminmenu[5]['link'] = "admin/index.php?op=export";
-$adminmenu[6]['title'] = _MI_NEWS_STATS;
-$adminmenu[6]['link'] = "admin/index.php?op=stats";
-$adminmenu[7]['title'] = _MI_NEWS_NEWSLETTER;
-$adminmenu[7]['link'] = "admin/index.php?op=configurenewsletter";
+$adminmenu[3]['link'] = "admin/index.php?action=GroupPermList";
+
 
 ?>
