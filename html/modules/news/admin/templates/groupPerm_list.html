@@ -28,13 +28,17 @@
 		</th>
 		<th><{$smarty.const._AD_ACTION}></th>
 	</tr>
-	<{foreach item=gperm from=$groupPerm}>
+	<{foreach item=topic_ids key=group_id from=$gPermArray}>
 	<tr class="<{cycle values='odd,even'}>">
 		<!-- gid,gname,permission name -->
-		<td class="item_list_title">(<{$gperm[2]}>)<{$gperm[0]}><{* $gperm[1] *}></td>
 		<td class="item_list_title">
-			<{foreach item=group from=$gperm[3]}>
-				<{$group}>,
+			(<{$group_id}>)<{$groupArray[$group_id]}>
+		</td>
+		<td class="item_list_title">
+			<{foreach item=object from=$topicObjects}>
+				<{assign var=topicId value=$object->getShow('topic_id')}>
+				<{xoops_input type=checkbox name=topic_ids[] value=1 default=$topic_ids[$topicId]}>
+				<{$topicArray[$topicId]}>
 			<{/foreach}>
 		</td>
 		<td class="item_list_control">

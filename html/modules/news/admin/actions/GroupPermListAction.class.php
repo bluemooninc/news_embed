@@ -36,7 +36,7 @@ class news_GroupPermListAction extends news_AbstractListAction
 	 * @param $permNumber
 	 * @return XoopsGroupPermForm
 	 */
-	private function &forge_GroupPerm($mid,$permNumber){
+	private function &getGPermObjects($permNumber){
 		switch($permNumber)
 		{
 			case 1:
@@ -55,38 +55,45 @@ class news_GroupPermListAction extends news_AbstractListAction
 				$perm_desc = _AD_VIEWFORM_DESC;
 				break;
 		}
-		$groupPerm = new XoopsGroupPermForm($title_of_form, $mid, $perm_name, $perm_desc);
-		return $groupPerm;
-	}
-
-	function &getGroupPerm(&$topicObjects){
 		$mid = $this->root->mContext->mXoopsModule->get('mid');
-		$groupPerm = $this->forge_GroupPerm($mid,$this->permNumber);
-		foreach ($topicObjects as $object) {
-			$groupPerm->addItem($object->getVar('topic_id'), $object->getVar('topic_title'), $object->getVar('topic_pid'));
+		$criteria = new CriteriaCompo();
+		$criteria->add(new Criteria('gperm_modid',$mid));
+		$criteria->add(new Criteria('gperm_name',$perm_name));
+		$criteria->addSort('gperm_groupid');
+		$gPermHandler =& xoops_getmodulehandler('group_permission','legacy');
+		$gPermObjects = $gPermHandler->getObjects($criteria);
+		return $gPermObjects;
+	}
+	private function &getTopicArray(){
+		$topicHandler = xoops_getmodulehandler('topics');
+		$topicObjects = $topicHandler->getObjects();
+		$topicArray = array();
+		foreach($topicObjects as $topicObject){
+			$topicArray[$topicObject->getVar('topic_id')] = $topicObject->getVar('topic_title');
 		}
-		$gperm_handler =& xoops_gethandler('groupperm');
-		$member_handler =& xoops_gethandler('member');
-		$glist =& $member_handler->getGroupList();
-		$elements = array();
-		foreach (array_keys($glist) as $i) {
-			// get selected item id(s) for each group
-			$selected = $gperm_handler->getItemIds($groupPerm->_permName, $i, $mid);
-			$elements[] = array(
-				$glist[$i],
-				'perms[' . $groupPerm->_permName . ']',
-				$i,
-				$selected
-			);
+		return $topicArray;
+	}
+	private function &getGroupArray(){
+		$groupHandler = xoops_getmodulehandler('groups','user');
+		$groupObjects = $groupHandler->getObjects();
+		$groupArray = array();
+		foreach($groupObjects as $groupObject){
+			$groupArray[$groupObject->getVar('groupid')] = $groupObject->getVar('name');
 		}
-		adump($elements);
-		return $elements;
+		return $groupArray;
 	}
 	function executeViewIndex(&$controller, &$render)
 	{
+		$gPermObjects = $this->getGPermObjects($this->permNumber);
+		$gPermArray = array();
+		foreach($gPermObjects as $gPermObject){
+			$gPermArray[$gPermObject->getVar('gperm_groupid')][$gPermObject->getVar('gperm_itemid')] = 1;
+		}
 		$render->setTemplateName("groupPerm_list.html");
-		$render->setAttribute("groupPerm", $this->getGroupPerm($this->mObjects));
-		$render->setAttribute("objects", $this->mObjects);
+		$render->setAttribute("gPermArray", $gPermArray);
+		$render->setAttribute("topicArray",$this->getTopicArray());
+		$render->setAttribute("groupArray",$this->getGroupArray());
+		$render->setAttribute("topicObjects", $this->mObjects);
 		$render->setAttribute("pageNavi", $this->mFilter->mNavi);
 	}
 }
