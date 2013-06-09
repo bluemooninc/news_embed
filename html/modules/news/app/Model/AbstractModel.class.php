@@ -9,6 +9,7 @@
 abstract class AbstractModel {
 	// object
 	protected $root = null;
+	public $mPagenavi;
 
 	/**
 	 * constructor

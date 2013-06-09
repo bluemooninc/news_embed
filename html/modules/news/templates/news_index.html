@@ -78,8 +78,19 @@
 		<{/section}>
 		</ol>
 	</div>
-	<div class="news-nav">
-		<{$pagenav}>
-	</div>
 </div>
+<div class="pagenavi" align="center">
+	<nobr>
+		<div class="pagination pagination-centered">
+			<ul>
+				<li class="active">
+				<li>
+					<{xoops_pagenavi2 pagenavi=$pageNavi}>
+				</li>
+				<li>
+			</ul>
+		</div>
+	</nobr>
+</div>
+
 <{include file='db:system_notification_select.html'}>

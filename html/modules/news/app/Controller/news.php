@@ -15,24 +15,23 @@ class Controller_News extends AbstractAction {
 	protected $storyObjects;
 	protected $userObject;
 	protected $topic_id;
+	protected $start = 0;
+	protected $perpage = 10;
+	protected $mModel;
+
 	public function action_index(){
 		$this->template = 'news_index.html';
 		$this->topic_id = $this->root->mContext->mRequest->getRequest( 'topicid' );
+		$this->start = $this->root->mContext->mRequest->getRequest( 'start' );
 		$uid = $this->root->mContext->mRequest->getRequest( 'uid' );
-		$model = Model_Article::forge();
-		$this->topicObject = $model->get_topic($this->topic_id);
-		$topicObjects = $model->get_topics();
+		$this->mModel = Model_Article::forge();
+		$this->topicObject = $this->mModel->get_topic($this->topic_id);
+		$topicObjects = $this->mModel->get_topics();
 		$this->topicArray = $this->getTopicArray($topicObjects,$this->topic_id);
-		$this->storyObjects = $model->get_stories($this->topic_id,$uid);
+		$this->storyObjects = $this->mModel->get_stories($this->topic_id,$uid,$this->perpage,$this->start);
 		if($uid){
-			$this->userObject = $model->get_user($uid);
+			$this->userObject = $this->mModel->get_user($uid);
 		}
-/*
-		if($this->storyObjects){
-			$this->topicObject = $model->get_topic($this->storyObject->getVar('topicid'));
-			$this->filesObjects = $model->get_files($story_id);
-			$this->userObject = $model->get_user($this->storyObject->getVar('uid'));
-		}*/
 	}
 	private function &getTopicArray(&$topicObjects,$topic_id=0){
 		$topics = array();
@@ -64,11 +63,10 @@ class Controller_News extends AbstractAction {
 		$view->set('storyObjects', $this->storyObjects);
 		$view->set('userObject', $this->userObject);
 		$view->set('topic_id', $this->topic_id);
-
 		// for comment section
 		//$this->_comment_view();
-		if (is_object($this->mPagenavi)) {
-			$view->set('pageNavi', $this->mPagenavi->getNavi());
+		if (is_object($this->mModel->mPagenavi)) {
+			$view->set('pageNavi', $this->mModel->mPagenavi->getNavi());
 		}
 	}
 }

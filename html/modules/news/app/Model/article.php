@@ -6,6 +6,8 @@
  * Time: 14:55
  * To change this template use File | Settings | File Templates.
  */
+require_once _MY_MODULE_PATH . 'app/Model/PageNavi.class.php';
+
 class Model_Article extends AbstractModel
 {
 	protected $storyHandler;
@@ -44,17 +46,22 @@ class Model_Article extends AbstractModel
 			return $this->storyHandler->create();
 		}
 	}
-	public function &get_stories($topic_id=0,$uid=0){
-		$criteria = new CriteriaCompo();
+	public function &get_stories($topic_id=0,$uid=0,$perpage=10,$start=0){
+		$this->mPagenavi = Model_PageNavi::forge();
+		if ($perpage==0) $perpage = $this->mPagenavi->getPerpage();
+		$this->mPagenavi->setHandler($this->storyHandler);
+		$this->mPagenavi->setUrl("storyList");
+		$this->mPagenavi->setPerpage($perpage);
+		$this->mPagenavi->setStart($start);
 		if ($topic_id>0){
-			$criteria->add(new Criteria("topicid",$topic_id));
+			$this->mPagenavi->addCriteria(new Criteria("topicid",$topic_id));
 		}
 		if ($uid>0){
-			$criteria->add(new Criteria("uid",$uid));
+			$this->mPagenavi->addCriteria(new Criteria("uid",$uid));
 		}
-		$criteria->addSort('published');
-		$criteria->addSort('created');
-		$objects = $this->storyHandler->getObjects($criteria);
+		$this->mPagenavi->addSort('published');
+		$this->mPagenavi->addSort('created');
+		$objects = $this->storyHandler->getObjects( $this->mPagenavi->getCriteria(), $perpage, $start);
 		return $objects;
 	}
 	public function set_story(&$object){
