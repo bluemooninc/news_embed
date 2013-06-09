@@ -62,7 +62,7 @@ function b_news_topicsnav_show($options) {
 			} else {
 				$count='';
 			}
-		    $block['topics'][] = array('id'=>$onetopic['topic_id'], 'news_count'=>$count, 'topic_color'=>'#'.$onetopic['topic_color'], 'title'=>$myts->displayTarea($onetopic['topic_title']));
+		    $block['news_topics'][] = array('id'=>$onetopic['topic_id'], 'news_count'=>$count, 'topic_color'=>'#'.$onetopic['topic_color'], 'title'=>$myts->displayTarea($onetopic['topic_title']));
 		}
 	}
 	return $block;

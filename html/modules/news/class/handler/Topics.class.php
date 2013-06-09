@@ -25,7 +25,7 @@ class news_topicsObject extends XoopsSimpleObject
 
 class news_topicsHandler extends XoopsObjectGenericHandler
 {
-	public $mTable = 'topics';
+	public $mTable = 'news_topics';
 	public $mPrimary = 'topic_id';
 	public $mClass = 'news_topicsObject';
 

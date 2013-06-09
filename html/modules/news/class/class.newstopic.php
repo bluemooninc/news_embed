@@ -184,7 +184,7 @@ class NewsTopic extends XoopsTopic
 	{
 	    $topics_arr = array();
 	    $db =& Database::getInstance();
-	    $table = $db->prefix('topics');
+	    $table = $db->prefix('news_topics');
         $sql = "SELECT * FROM ".$table;
         if ($checkRight) {
 			$topics = MygetItemIds($permission);
@@ -212,7 +212,7 @@ class NewsTopic extends XoopsTopic
 	function getNewsCountByTopic()
 	{
 		$ret=array();
-		$sql="SELECT count(storyid) as cpt, topicid FROM ".$this->db->prefix('stories')." WHERE (published > 0 AND published <= ".time().") AND (expired = 0 OR expired > ".time().") GROUP BY topicid";
+		$sql="SELECT count(storyid) as cpt, topicid FROM ".$this->db->prefix('news_stories')." WHERE (published > 0 AND published <= ".time().") AND (expired = 0 OR expired > ".time().") GROUP BY topicid";
 		$result = $this->db->query($sql);
 		while ($row = $this->db->fetchArray($result)) {
 			$ret[$row["topicid"]]=$row["cpt"];
@@ -226,7 +226,7 @@ class NewsTopic extends XoopsTopic
 	function getTopicMiniStats($topicid)
 	{
 		$ret=array();
-		$sql="SELECT count(storyid) as cpt1, sum(counter) as cpt2 FROM ".$this->db->prefix('stories')." WHERE (topicid=" . $topicid.") AND (published>0 AND published <= ".time().") AND (expired = 0 OR expired > ".time().")";
+		$sql="SELECT count(storyid) as cpt1, sum(counter) as cpt2 FROM ".$this->db->prefix('news_stories')." WHERE (topicid=" . $topicid.") AND (published>0 AND published <= ".time().") AND (expired = 0 OR expired > ".time().")";
 		$result = $this->db->query($sql);
 		$row = $this->db->fetchArray($result);
 		$ret['count']=$row["cpt1"];

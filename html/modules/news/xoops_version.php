@@ -26,7 +26,7 @@
 //  ------------------------------------------------------------------------ //
 
 $modversion['name'] = _MI_NEWS_NAME;
-$modversion['version'] = 1.50;
+$modversion['version'] = 2.00;
 $modversion['description'] = _MI_NEWS_DESC;
 $modversion['credits'] = "Hacked by Yoshis / Based by The XOOPS Project, Christian, Pilou, Marco, ALL the members of the Newbb Team, GIJOE, Zoullou, Mithrandir, Setec Astronomy, Marcan, 5vision, Anne";
 $modversion['author'] = "Yoshis at Bluemoon inc.";
@@ -37,12 +37,10 @@ $modversion['image'] = "images/news_slogo.png";
 $modversion['dirname'] = "news";
 
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
-
-// Tables created by sql file (without prefix!)
-$modversion['tables'][0] = "stories";
-$modversion['tables'][1] = "topics";
-$modversion['tables'][2] = "stories_files";
-$modversion['tables'][3] = "stories_votedata";
+$modversion['tables'][] = "{prefix}_{dirname}_stories";
+$modversion['tables'][] = "{prefix}_{dirname}_topics";
+$modversion['tables'][] = "{prefix}_{dirname}_stories_files";
+$modversion['tables'][] = "{prefix}_{dirname}_stories_votedata";
 
 // Admin things
 $modversion['hasAdmin'] = 1;
@@ -143,7 +141,7 @@ global $xoopsDB, $xoopsUser, $xoopsConfig, $xoopsModule, $xoopsModuleConfig;
 if (is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $modversion['dirname'] && $xoopsModule->getVar('isactive'))
 {
 	// 2) If there's no topics to display as sub menus we can go on
-	$sql = "SELECT COUNT(*) as cpt FROM ".$xoopsDB->prefix("topics")." WHERE menu=1";
+	$sql = "SELECT COUNT(*) as cpt FROM ".$xoopsDB->prefix("news_topics")." WHERE menu=1";
 	$result = $xoopsDB->query($sql);
 	list($count) = $xoopsDB->fetchRow($result);
 	if($count>0) {

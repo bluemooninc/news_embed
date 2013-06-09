@@ -23,7 +23,7 @@ class news_stories_filesObject extends XoopsSimpleObject
 
 class news_stories_filesHandler extends XoopsObjectGenericHandler
 {
-	public $mTable = 'stories_files';
+	public $mTable = 'news_stories_files';
 	public $mPrimary = 'fileid';
 	public $mClass = 'news_stories_filesObject';
 

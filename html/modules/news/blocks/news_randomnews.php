@@ -77,7 +77,7 @@ function b_news_randomnews_show($options) {
 				$news['infotips'] = '';
 			}
         }
-        $block['stories'][] = $news;
+        $block['news_stories'][] = $news;
     }
     $block['lang_read_more']=_MB_READMORE;
     return $block;

@@ -34,9 +34,9 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid()))
 {
 	$errors=0;
 	// 1) Create, if it does not exists, the stories_files table
-	if(!TableExists($xoopsDB->prefix('stories_files')))
+	if(!TableExists($xoopsDB->prefix('news_stories_files')))
 	{
-		$sql = "CREATE TABLE ".$xoopsDB->prefix('stories_files')." (
+		$sql = "CREATE TABLE ".$xoopsDB->prefix('news_stories_files')." (
   			fileid int(8) unsigned NOT NULL auto_increment,
   			filerealname varchar(255) NOT NULL default '',
   			storyid int(8) unsigned NOT NULL default '0',
@@ -54,7 +54,7 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid()))
 	}
 
 	// 2) Change the topic title's length, in the topics table
-	$sql=sprintf("ALTER TABLE " . $xoopsDB->prefix('topics') . " CHANGE topic_title topic_title VARCHAR( 255 ) NOT NULL;");
+	$sql=sprintf("ALTER TABLE " . $xoopsDB->prefix('news_topics') . " CHANGE topic_title topic_title VARCHAR( 255 ) NOT NULL;");
 	$result=$xoopsDB->queryF($sql);
 	if (!$result) {
     	echo '<br />' .  _AD_NEWS_UPGRADEFAILED.' '._AD_NEWS_UPGRADEFAILED2;
@@ -62,20 +62,20 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid()))
 	}
 
 	// 2.1) Add the new fields to the topic table
-	if (!FieldExists('menu',$xoopsDB->prefix('topics'))) {
-		AddField("menu TINYINT( 1 ) DEFAULT '0' NOT NULL",$xoopsDB->prefix('topics'));
+	if (!FieldExists('menu',$xoopsDB->prefix('news_topics'))) {
+		AddField("menu TINYINT( 1 ) DEFAULT '0' NOT NULL",$xoopsDB->prefix('news_topics'));
 	}
-	if (!FieldExists('topic_frontpage',$xoopsDB->prefix('topics'))) {
-		AddField("topic_frontpage TINYINT( 1 ) DEFAULT '1' NOT NULL",$xoopsDB->prefix('topics'));
+	if (!FieldExists('topic_frontpage',$xoopsDB->prefix('news_topics'))) {
+		AddField("topic_frontpage TINYINT( 1 ) DEFAULT '1' NOT NULL",$xoopsDB->prefix('news_topics'));
 	}
-	if (!FieldExists('topic_rssurl',$xoopsDB->prefix('topics'))) {
-		AddField("topic_rssurl VARCHAR( 255 ) NOT NULL",$xoopsDB->prefix('topics'));
+	if (!FieldExists('topic_rssurl',$xoopsDB->prefix('news_topics'))) {
+		AddField("topic_rssurl VARCHAR( 255 ) NOT NULL",$xoopsDB->prefix('news_topics'));
 	}
-	if (!FieldExists('topic_description',$xoopsDB->prefix('topics'))) {
-		AddField("topic_description TEXT NOT NULL",$xoopsDB->prefix('topics'));
+	if (!FieldExists('topic_description',$xoopsDB->prefix('news_topics'))) {
+		AddField("topic_description TEXT NOT NULL",$xoopsDB->prefix('news_topics'));
 	}
-	if (!FieldExists('topic_color',$xoopsDB->prefix('topics'))) {
-		AddField("topic_color varchar(6) NOT NULL default '000000'",$xoopsDB->prefix('topics'));
+	if (!FieldExists('topic_color',$xoopsDB->prefix('news_topics'))) {
+		AddField("topic_color varchar(6) NOT NULL default '000000'",$xoopsDB->prefix('news_topics'));
 	}
 
 	// 3) If it does not exists, create the table stories_votedata
@@ -100,23 +100,23 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid()))
 	}
 
 	// 4) Create the four new fields for the votes in the story table
-	if (!FieldExists('rating',$xoopsDB->prefix('stories'))) {
-		AddField("rating DOUBLE( 6, 4 ) DEFAULT '0.0000' NOT NULL",$xoopsDB->prefix('stories'));
+	if (!FieldExists('rating',$xoopsDB->prefix('news_stories'))) {
+		AddField("rating DOUBLE( 6, 4 ) DEFAULT '0.0000' NOT NULL",$xoopsDB->prefix('news_stories'));
 	}
-	if (!FieldExists('votes',$xoopsDB->prefix('stories'))) {
-		AddField("votes INT( 11 ) UNSIGNED DEFAULT '0' NOT NULL",$xoopsDB->prefix('stories'));
+	if (!FieldExists('votes',$xoopsDB->prefix('news_stories'))) {
+		AddField("votes INT( 11 ) UNSIGNED DEFAULT '0' NOT NULL",$xoopsDB->prefix('news_stories'));
 	}
-	if (!FieldExists('keywords',$xoopsDB->prefix('stories'))) {
-		AddField("keywords VARCHAR(255) NOT NULL",$xoopsDB->prefix('stories'));
+	if (!FieldExists('keywords',$xoopsDB->prefix('news_stories'))) {
+		AddField("keywords VARCHAR(255) NOT NULL",$xoopsDB->prefix('news_stories'));
 	}
-	if (!FieldExists('description',$xoopsDB->prefix('stories'))) {
-		AddField("description VARCHAR(255) NOT NULL",$xoopsDB->prefix('stories'));
+	if (!FieldExists('description',$xoopsDB->prefix('news_stories'))) {
+		AddField("description VARCHAR(255) NOT NULL",$xoopsDB->prefix('news_stories'));
 	}
 
 	// 5) Add some indexes to the topics table
-	$sql=sprintf("ALTER TABLE " . $xoopsDB->prefix('topics') . " ADD INDEX ( `topic_title` );");
+	$sql=sprintf("ALTER TABLE " . $xoopsDB->prefix('news_topics') . " ADD INDEX ( `topic_title` );");
 	$result=$xoopsDB->queryF($sql);
-	$sql=sprintf("ALTER TABLE " . $xoopsDB->prefix('topics') . " ADD INDEX ( `menu` );");
+	$sql=sprintf("ALTER TABLE " . $xoopsDB->prefix('news_topics') . " ADD INDEX ( `menu` );");
 	$result=$xoopsDB->queryF($sql);
 
 

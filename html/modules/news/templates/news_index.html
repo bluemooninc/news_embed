@@ -30,9 +30,15 @@
 <ul>
 	<{foreach item=story from=$storyObjects}>
 	<li>
+		<{if $story->getVar('published')}>
 		<a href="<{$xoops_url}>/modules/news/app/article.php?storyid=<{$story->getVar('storyid')}>">
 			<{$story->getVar('published')|date_format:"%G-%m-%d"}>: <{$story->getVar('title')}>
 		</a>
+		<{else}>
+		<a class="badge" href="<{$xoops_url}>/modules/news/app/submit.php?storyid=<{$story->getVar('storyid')}>">
+			<{$smarty.const._MD_NEWS_EDIT_STORY}>
+		</a><{$story->getVar('title')}>
+		<{/if}>
 	</li>
 	<{/foreach}>
 </ul>

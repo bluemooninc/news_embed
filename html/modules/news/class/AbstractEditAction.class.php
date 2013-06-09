@@ -35,14 +35,12 @@ class news_AbstractEditAction extends news_Action
 	 */
 	function _setupObject()
 	{
-		$id = $this->_getId();
-		
-		$this->mObjectHandler = $this->_getHandler();
-		
-		$this->mObject =& $this->mObjectHandler->get($id);
-		
-		if ($this->mObject == null && $this->isEnableCreate()) {
-			$this->mObject =& $this->mObjectHandler->create();
+		if($id = $this->_getId()){
+			$this->mObjectHandler = $this->_getHandler();
+			$this->mObject =& $this->mObjectHandler->get($id);
+			if ($this->mObject == null && $this->isEnableCreate()) {
+				$this->mObject =& $this->mObjectHandler->create();
+			}
 		}
 	}
 

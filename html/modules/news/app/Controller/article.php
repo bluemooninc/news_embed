@@ -9,6 +9,7 @@
 
 //namespace Controller;
 require_once _MY_MODULE_PATH . 'app/Model/article.php';
+require_once _MY_MODULE_PATH . 'app/Model/GroupPerm.class.php';
 require_once _MY_MODULE_PATH . 'app/View/view.php';
 
 class Controller_Article extends AbstractAction {
@@ -23,7 +24,10 @@ class Controller_Article extends AbstractAction {
 		$model = Model_Article::forge();
 		$this->storyObject = $model->get_story($story_id);
 		if($this->storyObject){
-			$this->topicObject = $model->get_topic($this->storyObject->getVar('topicid'));
+			$topic_id = $this->storyObject->getVar('topicid');
+			$modelGroupPerm = Model_GroupPerm::forge();
+			if (!$modelGroupPerm->checkPerm(3,$topic_id)) redirect_header(XOOPS_URL,"5","No Permission");
+			$this->topicObject = $model->get_topic($topic_id);
 			$this->filesObjects = $model->get_files($story_id);
 			$this->userObject = $model->get_user($this->storyObject->getVar('uid'));
 		}

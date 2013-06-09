@@ -103,7 +103,6 @@ class news_ActionFrame
 			//
 			// error
 			//
-
 			$controller->executeForward(XOOPS_URL . '/');
 		}
 

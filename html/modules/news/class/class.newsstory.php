@@ -82,7 +82,7 @@ class NewsStory extends XoopsStory
 	 */
 	function getStory($storyid)
 	{
-		$sql = "SELECT s.*, t.* FROM ".$this->table." s, ".$this->db->prefix('topics')." t WHERE (storyid=".$storyid.") AND (s.topicid=t.topic_id)";
+		$sql = "SELECT s.*, t.* FROM ".$this->table." s, ".$this->db->prefix('news_topics')." t WHERE (storyid=".$storyid.") AND (s.topicid=t.topic_id)";
 		$array = $this->db->fetchArray($this->db->query($sql));
 		$this->makeStory($array);
 	}
@@ -749,7 +749,7 @@ class NewsStory extends XoopsStory
 		}
 
 		// Now we can search for the stories
-		$sql = "SELECT s.*, t.* FROM ".$this->table." s, ".$this->db->prefix('topics')." t WHERE (s.topicid=t.topic_id) AND (s.published >=" . $fromdate . " AND s.published <= " . $todate .")";
+		$sql = "SELECT s.*, t.* FROM ".$this->table." s, ".$this->db->prefix('news_topics')." t WHERE (s.topicid=t.topic_id) AND (s.published >=" . $fromdate . " AND s.published <= " . $todate .")";
 		if(strlen(trim($topicslist))>0) {
 			$sql .=" AND topicid IN (".$topicslist.")";
 		}

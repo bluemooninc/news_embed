@@ -189,7 +189,7 @@ if ($fromyear != 0 && $frommonth != 0) {
 	    	$story['date'] = formatTimestamp($article->published(),$dateformat,$useroffset);
 	    	$story['print_link'] = XOOPS_URL.'/modules/news/print.php?storyid='.$article->storyid();
 	    	$story['mail_link'] = 'mailto:?subject='.sprintf(_MD_INTARTICLE, $xoopsConfig['sitename']).'&amp;body='.sprintf(_MD_INTARTFOUND, $xoopsConfig['sitename']).':  '.XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/article.php?storyid='.$article->storyid();
-	    	$xoopsTpl->append('stories', $story);
+	    	$xoopsTpl->append('news_stories', $story);
 		}
 	}
 	$xoopsTpl->assign('lang_printer', _MD_PRINTERFRIENDLY);

@@ -7,7 +7,7 @@
 
 if (!defined('XOOPS_ROOT_PATH')) exit();
 
-class Gmopg_AbstractAction
+class news_AbstractAction
 {
 	var $mRoot = null;
 	var $mModule = null;
@@ -18,7 +18,7 @@ class Gmopg_AbstractAction
 	 */
 	function &_getHandler(){
 	}
-	function Gmopg_AbstractAction(){
+	function news_AbstractAction(){
 		$this->mRoot =& XCube_Root::getSingleton();
 		$this->mModule =& $this->mRoot->mContext->mModule;
 		$this->mAsset =& $this->mModule->mAssetManager;

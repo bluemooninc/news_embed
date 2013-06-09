@@ -65,7 +65,7 @@ function b_news_topics_moderate() {
             $story['action'] = "<a href='" . XOOPS_URL . "/modules/news/admin/index.php?op=delete&amp;storyid=" . $newstory->storyid() . "'>" . _MB_DELETE . "</a>";
             $story['topic_title'] = $newstory->topic_title();
             $story['topic_color']= '#'.$myts->displayTarea($newstory->topic_color);
-            $block['stories'][] =& $story;
+            $block['news_stories'][] =& $story;
             unset($story);
         }
     }

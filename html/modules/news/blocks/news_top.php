@@ -462,7 +462,7 @@ function b_news_top_show($options) {
 						$news['infotips'] = '';
 					}
             	}
-            	$block['stories'][] = $news;
+            	$block['news_stories'][] = $news;
         	}
     	}
 

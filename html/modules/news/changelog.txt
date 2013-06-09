@@ -160,8 +160,8 @@ Additions/Changes :
 > I have added, in the module's admin part, the same system that you can find in some modules (like smartfaq) to collapse some parts of the screen
 > The page used to set permissions was changed. I have used the same system that you can see in the formulize module, in fact you can only set one type of permissions at a time.
 > $HTTP_POST_FILES was changed to $_FILES (thank you eric_juden)
-> I have added two indexes on the 'topics' table, 'topic_title' and 'menu', you can launch the upgrade script to modify your database
-> The fields keywords and description, of the 'stories' table are now used in the module's search
+> I have added two indexes on the 'news_topics' table, 'topic_title' and 'menu', you can launch the upgrade script to modify your database
+> The fields keywords and description, of the 'news_stories' table are now used in the module's search
 > The number of sql queries used everywhere in the module was really *greatly* reduced
 > In the recent news and top news blocks, you can now use the folowing smarty variables to see your topic's description and picture
 		<{$block.topic_description}>   			<{$block.topic_image}>

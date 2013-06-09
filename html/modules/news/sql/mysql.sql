@@ -2,7 +2,7 @@
 # Table structure for table `stories`
 #
 
-CREATE TABLE stories (
+CREATE TABLE news_stories (
   storyid int(8) unsigned NOT NULL auto_increment,
   uid int(5) unsigned NOT NULL default '0',
   title varchar(255) NOT NULL default '',
@@ -40,7 +40,7 @@ CREATE TABLE stories (
 # Table structure for table `stories_files`
 #
 
-CREATE TABLE stories_files (
+CREATE TABLE news_stories_files (
   fileid int(8) unsigned NOT NULL auto_increment,
   filerealname varchar(255) NOT NULL default '',
   storyid int(8) unsigned NOT NULL default '0',
@@ -56,7 +56,7 @@ CREATE TABLE stories_files (
 # Table structure for table `topics`
 #
 
-CREATE TABLE topics (
+CREATE TABLE news_topics (
   topic_id smallint(4) unsigned NOT NULL auto_increment,
   topic_pid smallint(4) unsigned NOT NULL default '0',
   topic_imgurl varchar(20) NOT NULL default '',
@@ -74,14 +74,14 @@ CREATE TABLE topics (
 
 
 
-INSERT INTO topics (topic_id, topic_pid, topic_imgurl, topic_title, menu, topic_frontpage, topic_rssurl, topic_description) VALUES (1,0,'xoops.gif','XOOPS',0,1,'','');
+INSERT INTO news_topics (topic_id, topic_pid, topic_imgurl, topic_title, menu, topic_frontpage, topic_rssurl, topic_description) VALUES (1,0,'xoops.gif','XOOPS',0,1,'','');
 
 
 #
 # Table structure for table `stories_votedata`
 #
 
-CREATE TABLE stories_votedata (
+CREATE TABLE news_stories_votedata (
   ratingid int(11) unsigned NOT NULL auto_increment,
   storyid int(8) unsigned NOT NULL default '0',
   ratinguser int(11) NOT NULL default '0',

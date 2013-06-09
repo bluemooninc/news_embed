@@ -148,7 +148,7 @@ if($articlescount>0) {
 		if($oldtopic!=$article['topicid']) {
 			if(count($articlestpl)>0) {
 				$topic_link=sprintf("<a href='%s'>%s</a>",XOOPS_URL.'/modules/news/index.php?storytopic='.$oldtopic,$oldtopictitle);
-				$xoopsTpl->append('topics',array('topic_id'=>$oldtopic, 'topic_color'=>$oldtopiccolor, 'topic_title'=>$oldtopictitle, 'topic_link'=> $topic_link, 'news'=>$articlestpl));
+				$xoopsTpl->append('news_topics',array('topic_id'=>$oldtopic, 'topic_color'=>$oldtopiccolor, 'topic_title'=>$oldtopictitle, 'topic_link'=> $topic_link, 'news'=>$articlestpl));
 			}
 			$oldtopic=$article['topicid'];
 			$oldtopictitle=$article['topic_title'];
@@ -172,7 +172,7 @@ if($articlescount>0) {
 	}
 }
 $topic_link=sprintf("<a href='%s'>%s</a>",XOOPS_URL.'/modules/news/index.php?storytopic='.$oldtopic,$oldtopictitle);
-$xoopsTpl->append('topics',array('topic_id'=>$oldtopic, 'topic_title'=>$oldtopictitle, 'topic_link'=> $topic_link, 'news'=>$articlestpl));
+$xoopsTpl->append('news_topics',array('topic_id'=>$oldtopic, 'topic_title'=>$oldtopictitle, 'topic_link'=> $topic_link, 'news'=>$articlestpl));
 $xoopsTpl->assign('xoops_pagetitle', _MI_NEWSBYTHISAUTHOR . ' - ' .$authname . ' - ' . $myts->htmlSpecialChars($xoopsModule->name()) );
 
 /**

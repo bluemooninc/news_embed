@@ -7,7 +7,7 @@
 <{*
 <div class="tips"><{$smarty.const._AD_NEWS_TIPS_STORY_EDIT}></div>
 *}>
-		
+
 <p>
 <div class="btn-group" data-toggle="buttons-radio">
 <a class="btn<{if $permNumber==1}> btn-info<{/if}>" href="?action=GroupPermList&amp;permNumber=1"><{$smarty.const._AD_APPROVEFORM}></a>
@@ -16,8 +16,8 @@
 </div>
 </p>
 
-<form action="?action=groupPerm" method="post">
-	<{xoops_token form=$actionForm}>
+<form action="?action=GroupPermEdit" method="post">
+	<input type="hidden" name="<{$tokenName}>" value="<{$tokenValue}>" />
 	<{xoops_input type=hidden name=permNumber value=$permNumber}>
 
 <table class="table">
@@ -31,9 +31,8 @@
 			<a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.ITEM_SORT_KEY_gperm}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
 		</th>
 	</tr>
-	<{* foreach item=topic_ids key=group_id from=$gPermArray *}>
 	<{foreach item=group_name key=group_id from=$groupArray}>
-	<tr">
+	<tr>
 		<!-- gid,gname,permission name -->
 		<td>
 			(<{$group_id}>)<{$group_name}>
@@ -41,8 +40,9 @@
 		<td>
 			<{foreach item=object from=$topicObjects}>
 				<{assign var=topicId value=$object->getShow('topic_id')}>
-				<{xoops_input type=checkbox name=topic_ids[$group_id][] value=1 default=$gPermArray[$group_id][$topicId]}>
-				<{$topicArray[$topicId]}>
+				<{assign var=gpermId value=$gPermArray[$group_id][$topicId]}>
+				<{xoops_input type=checkbox name=topic_ids[$group_id][$topicId] value=$gpermId default=$gPermArray[$group_id][$topicId]}>
+				<{$topicArray[$topicId]}><{$topicId}>
 			<{/foreach}>
 		</td>
 	</tr>

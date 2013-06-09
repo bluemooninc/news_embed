@@ -39,7 +39,7 @@ class news_storiesObject extends XoopsSimpleObject
 
 class news_storiesHandler extends XoopsObjectGenericHandler
 {
-	public $mTable = 'stories';
+	public $mTable = 'news_stories';
 	public $mPrimary = 'storyid';
 	public $mClass = 'news_storiesObject';
 

@@ -851,7 +851,7 @@ function delTopic()
             // all stories for each topic is deleted, now delete the topic data
             $eachtopic -> delete();
             // Delete also the notifications and permissions
-            xoops_notification_deletebystory( $xoopsModule -> getVar( 'mid' ), 'topics', $eachtopic -> topic_id );
+            xoops_notification_deletebystory( $xoopsModule -> getVar( 'mid' ), 'news_topics', $eachtopic -> topic_id );
 			xoops_groupperm_deletebymodstory($xoopsModule->getVar('mid'), 'news_approve', $eachtopic -> topic_id);
 			xoops_groupperm_deletebymodstory($xoopsModule->getVar('mid'), 'news_submit', $eachtopic -> topic_id);
 			xoops_groupperm_deletebymodstory($xoopsModule->getVar('mid'), 'news_view', $eachtopic -> topic_id);
@@ -1256,7 +1256,7 @@ switch ($op)
     default:
         xoops_cp_header();
         adminmenu(-1);
-        if(!TableExists($xoopsDB->prefix('stories_votedata')) || !TableExists($xoopsDB->prefix('stories_files')) ) {
+        if(!TableExists($xoopsDB->prefix('stories_votedata')) || !TableExists($xoopsDB->prefix('news_stories_files')) ) {
         	echo "<div align='center'>"._AD_NEWS_PLEASE_UPGRADE."</div><br/><br />";
         }
         echo "<h4>" . _AD_CONFIG . "</h4>";

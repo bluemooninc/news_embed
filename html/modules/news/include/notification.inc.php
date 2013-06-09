@@ -46,7 +46,7 @@ function news_notify_iteminfo($category, $item_id)
 
 	if ($category=='story') {
 		// Assume we have a valid story id
-		$sql = 'SELECT title FROM '.$xoopsDB->prefix('stories') . ' WHERE storyid = ' . $item_id;
+		$sql = 'SELECT title FROM '.$xoopsDB->prefix('news_stories') . ' WHERE storyid = ' . $item_id;
 		$result = $xoopsDB->query($sql); // TODO: error check
 		$result_array = $xoopsDB->fetchArray($result);
 		$item['name'] = $result_array['title'];

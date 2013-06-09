@@ -257,7 +257,7 @@ if ($showclassic) {
 			$topicstories[$topicid][] = $thisstory->prepare2show($filescount);
 		}
 		if(isset($topicstories[$topicid])) {
-			$smarty_topics[$topicstories[$topicid][0]['posttimestamp']] = array('title' => $topic['title'], 'stories' => $topicstories[$topicid], 'id' => $topicid, 'topic_color'=>$topic['color']);
+			$smarty_topics[$topicstories[$topicid][0]['posttimestamp']] = array('title' => $topic['title'], 'news_stories' => $topicstories[$topicid], 'id' => $topicid, 'topic_color'=>$topic['color']);
 		}
     }
 
@@ -271,7 +271,7 @@ if ($showclassic) {
             $i = 0;
         }
     }
-    //$xoopsTpl->assign('topics', $smarty_topics);
+    //$xoopsTpl->assign('news_topics', $smarty_topics);
     $xoopsTpl->assign('columns', $columns);
 }
 

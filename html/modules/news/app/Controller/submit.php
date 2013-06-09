@@ -7,14 +7,18 @@
  * To change this template use File | Settings | File Templates.
  */
 require_once _MY_MODULE_PATH . 'app/Model/article.php';
+require_once _MY_MODULE_PATH . 'app/Model/GroupPerm.class.php';
 require_once _MY_MODULE_PATH . 'app/View/view.php';
 
 class Controller_Submit extends AbstractAction {
+	protected $topicid=0;
 	protected $storyid;
 	protected $action;
 	protected $filesObjects;
+	protected $approve = false;
 	function __construct(){
 		parent::__construct();
+		$this->topicid = $this->root->mContext->mRequest->getRequest('topicid');
 		$this->mModel = Model_Article::forge();
 		$this->storyid = $this->root->mContext->mRequest->getRequest('storyid');
 		$this->action = $this->root->mContext->mRequest->getRequest('action');
@@ -48,6 +52,11 @@ class Controller_Submit extends AbstractAction {
 	public function action_index(){
 		$this->template = 'news_submit.html';
 		$object = $this->mModel->get_story($this->storyid);
+		// Check Permission right
+		$model = Model_GroupPerm::forge();
+		if (!$model->checkPerm(2,$object->getVar('topicid'))) redirect_header(XOOPS_URL,"5","No Edit Permission");
+		if ($model->checkPerm(1,$object->getVar('topicid'))) $this->approve = true;
+		// Set Form
 		$this->mActionForm = $this->_setupActionForm($object);
 		if ($this->action=="StoryEdit"){
 			$this->mActionForm->fetch();
@@ -70,6 +79,7 @@ class Controller_Submit extends AbstractAction {
 		$view->set('filesObjects', $this->filesObjects);
 		$topicsHandler = xoops_getmodulehandler('topics');
 		$view->set("topicOptions", $topicsHandler->getTopicsOptions());
+		$view->set("approve", $this->approve );
 		$this->setDatepicker();
 	}
 }

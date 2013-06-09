@@ -112,5 +112,6 @@ define("_MD_NEWS_STORY_ID","記事ID");
 define("_MD_NEWS_ATTACHE_ID","添付ID");
 define("_MD_NEWS_TITLE","記事タイトル");
 define("_MD_NEWS_ERROR_MAXLENGTH","最大文字長");
+define("_MD_NEWS_EDIT_STORY","編集");
 define("_MD_NEWS_SAVE_STORY","保存");
 define("_MD_NEWS_VIEW_STORY","閲覧");

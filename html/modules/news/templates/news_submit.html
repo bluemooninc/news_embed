@@ -54,12 +54,16 @@
 				<input type="file" name="downloadname" size="50">
 			</td>
 		</tr>
+		<{if $approve && $actionForm->get('topicid')}>
 		<tr>
 			<td class="head"><{$smarty.const._MD_PUBLISHED}></td>
 			<td class="<{cycle values='odd,even'}>">
 			<{xoops_input type=text name=published value=$actionForm->get('published') class='datepicker'}>
 			</td>
 		</tr>
+		<{else}>
+			<{xoops_input type=hidden name=published value=0}>
+		<{/if}>
 		<tr>
 			<td class="head"><{$smarty.const._MD_EXPIRED}></td>
 			<td class="<{cycle values='odd,even'}>">
