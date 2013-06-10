@@ -7,12 +7,13 @@
 <{*
 <div class="tips"><{$smarty.const._AD_NEWS_TIPS_ATTACHE_EDIT}></div>
 *}>
-
+<{if $storyid}>
 <ul class="toptab">
-	<li class="add"><a href="index.php?action=AttachEdit<{if $storyid}>&amp;storyid=<{$storyid}><{/if}>">
+	<li class="add"><a href="index.php?action=AttachEdit&amp;storyid=<{$storyid}>">
 		<{$smarty.const._AD_NEWS_ATTACHE_NEW}>
 	</a></li>
 </ul>
+<{/if}>
 <{if $itemObject}>
 <h2><{$itemObject->getShow('item_name')}></h2>
 <{/if}>

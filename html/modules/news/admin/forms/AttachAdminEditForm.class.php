@@ -27,12 +27,14 @@ class news_AttachAdminEditForm extends XCube_ActionForm
 	 */
 	function getTokenErrorMessage()
 	{
+		die("TokenError");
 		return NULL;
 	}
 
 	function prepare()
 	{
 		$this->mUploadDir = XOOPS_ROOT_PATH . "/uploads/";
+
 		//
 		// Set form properties
 		//

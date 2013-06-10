@@ -11,6 +11,9 @@ require_once XOOPS_MODULE_PATH . "/news/admin/forms/AttachAdminEditForm.class.ph
 
 class news_AttachEditAction extends news_AbstractEditAction
 {
+	function __construct(){
+		$this->_getHandler();
+	}
 	function _getId()
 	{
 		return xoops_getrequest('fileid');
@@ -18,8 +21,8 @@ class news_AttachEditAction extends news_AbstractEditAction
 	
 	function &_getHandler()
 	{
-		$handler =& xoops_getmodulehandler('stories_files');
-		return $handler;
+		$this->mObjectHandler = xoops_getmodulehandler('stories_files');
+		return $this->mObjectHandler;
 	}
 
 	function _setupActionForm()
@@ -43,7 +46,7 @@ class news_AttachEditAction extends news_AbstractEditAction
 
 	function executeViewError(&$controller, &$render)
 	{
-		$controller->executeRedirect("index.php?action=AttachList", 5, _MD_NEWS_ERROR_DBUPDATE_FAILED);
+		$controller->executeRedirect("index.php?action=AttachList", 5, "Error");
 	}
 
 	function executeViewCancel(&$controller, &$render)
