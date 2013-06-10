@@ -16,12 +16,14 @@ class Controller_Submit extends AbstractAction {
 	protected $action;
 	protected $filesObjects;
 	protected $approve = false;
+	protected $storyEdit = null;
 	function __construct(){
 		parent::__construct();
 		$this->topicid = $this->root->mContext->mRequest->getRequest('topicid');
 		$this->mModel = Model_Article::forge();
 		$this->storyid = $this->root->mContext->mRequest->getRequest('storyid');
 		$this->action = $this->root->mContext->mRequest->getRequest('action');
+		$this->storyEdit = $this->root->mContext->mRequest->getRequest('StoryEdit');
 	}
 	private function &_setupActionForm($object)
 	{
@@ -58,7 +60,7 @@ class Controller_Submit extends AbstractAction {
 		if ($model->checkPerm(1,$object->getVar('topicid'))) $this->approve = true;
 		// Set Form
 		$this->mActionForm = $this->_setupActionForm($object);
-		if ($this->action=="StoryEdit"){
+		if ($this->storyEdit){
 			$this->mActionForm->fetch();
 			$this->mActionForm->validate();
 			if($this->mActionForm->hasError()) {

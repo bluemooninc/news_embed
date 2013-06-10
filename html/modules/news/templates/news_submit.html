@@ -1,5 +1,5 @@
 <h1><{$smarty.const._MD_SUBMITNEWS}></h1>
-<form action="?action=StoryEdit" method="post" enctype="multipart/form-data">
+<form action="?action=submit" method="post" enctype="multipart/form-data">
 	<{xoops_token form=$actionForm}>
 	<{xoops_input type=hidden name=storyid value=$actionForm->get('storyid')}>
 	<table class="table">
@@ -72,8 +72,8 @@
 		</tr>
 		<tr>
 			<td colspan="2" class="foot">
-				<a class="btn" href="<{$xoops_url}>/modules/news/app/article.php?storyid=<{$actionForm->get('storyid')}>"><{$smarty.const._MD_NEWS_VIEW_STORY}></a>
-				<input class="btn btn-primary" type="submit" value="<{$smarty.const._MD_NEWS_SAVE_STORY}>"/>
+				<a class="btn" href="<{$xoops_url}>/modules/news/index.php?action=article&storyid=<{$actionForm->get('storyid')}>"><{$smarty.const._MD_NEWS_VIEW_STORY}></a>
+				<input class="btn btn-primary" type="submit" name="StoryEdit" value="<{$smarty.const._MD_NEWS_SAVE_STORY}>"/>
 			</td>
 		</tr>
 	</table>

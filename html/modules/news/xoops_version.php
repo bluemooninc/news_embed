@@ -164,13 +164,14 @@ if (is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $modversion['d
 		unset($xt);
 	}
 }
-
+/*
 $modversion['sub'][$i]['name'] = _MI_NEWS_SMNAME2;
-$modversion['sub'][$i]['url'] = "app/archive.php";
+$modversion['sub'][$i]['url'] = "archive.php";
+*/
 if ($cansubmit) {
 	$i++;
     $modversion['sub'][$i]['name'] = _MI_NEWS_SMNAME1;
-    $modversion['sub'][$i]['url'] = "app/submit.php";
+    $modversion['sub'][$i]['url'] = "index.php?action=submit";
 }
 unset($cansubmit);
 

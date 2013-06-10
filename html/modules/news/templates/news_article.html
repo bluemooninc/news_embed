@@ -1,6 +1,6 @@
 <div id="news-wrapper">
 <{if $topicObject}>
-		<a class="label" href="<{$xoops_url}>/modules/news/app/index.php?topicid=<{$topicObject->getShow('topic_id')}>">
+		<a class="label" href="<{$xoops_url}>/modules/news/index.php?action=index&topicid=<{$topicObject->getShow('topic_id')}>">
 			<{$topicObject->getShow('topic_title')}>
 		</a>
 <{/if}>
@@ -9,7 +9,7 @@
 	<h1><{$storyObject->getShow('title')}></h1>
 	<{$smarty.const._MD_AUTHOR}>
 	<{if $userObject}>
-	<a href="<{$xoops_url}>/modules/news/app/index.php?uid=<{$userObject->getShow('uid')}>">
+	<a href="<{$xoops_url}>/modules/news/index.php?action=index&uid=<{$userObject->getShow('uid')}>">
 		<{$userObject->getShow('uname')|xoops_escape}>
 	</a>
 	<{/if}>
@@ -20,7 +20,7 @@
 	</small>
 	<{if $xoops_isuser || $xoops_isadmin}>
 	<div class="pull-right">
-		<a class="badge" href="<{$xoops_url}>/modules/news/app/submit.php?op=edit&amp;storyid=<{$storyObject->getShow('storyid')}>"><{$smarty.const._EDIT}></a>
+		<a class="badge" href="<{$xoops_url}>/modules/news/index.php?action=submit&op=edit&amp;storyid=<{$storyObject->getShow('storyid')}>"><{$smarty.const._EDIT}></a>
 		<a class="badge" href="<{$xoops_url}>/modules/news/admin/index.php?op=delete&amp;storyid=<{$storyObject->getShow('storyid')}>"><{$smarty.const._DELETE}></a>
 	</div>
 	<{/if}>
@@ -33,7 +33,7 @@
 <{if $filesObjects}>
 	<{foreach item=filesObject from=$filesObjects }>
 	<{if $filesObject->getShow('downloadname')}>
-	<a href="<{$xoops_url}>/modules/news/download.php?url=<{$filesObject->getShow('downloadname')}>&filename=<{$filesObject->getShow('filerealname')}>">
+	<a href="<{$xoops_url}>/modules/news/index.php?action=download&url=<{$filesObject->getShow('downloadname')}>&filename=<{$filesObject->getShow('filerealname')}>">
 		<i class="icon-download"></i>
 		<{$filesObject->getShow('downloadname')}>
 	</a><br />

@@ -1,331 +1,134 @@
 <?php
-// $Id: index.php,v 1.21 2004/09/01 17:48:07 hthouzard Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-/**
- * Module's index
- *
- * This page displays a list of the published articles and can also display the
- * stories of a particular topic.
- *
- * @package News
- * @author Xoops Modules Dev Team
- * @copyright (c) The Xoops Project - www.xoops.org
- *
- * Parameters received by this page :
- * @page_param 	int		storytopic 					Topic's ID
- * @page_param	int		topic_id					Topic's ID
- * @page_param	int		storynum					Number of news per page
- * @page_param	int		start						First news to display
- *
- * @page_title			Topic's title - Story's title - Module's name
- *
- * @template_name		news_index.html or news_by_topic.html
- *
- * Template's variables :
- * For each article
- * @template_var 	int		id			story's ID
- * @template_var 	string	poster		Complete link to the author's profile
- * @template_var 	string	author_name	Author's name according to the module's option called displayname
- * @template_var 	int		author_uid	Author's ID
- * @template_var 	float	rating		New's rating
- * @template_var 	int		votes		number of votes
- * @template_var 	int		posttimestamp Timestamp representing the published date
- * @template_var 	string	posttime		Formated published date
- * @template_var 	string	text		The introduction's text
- * @template_var 	string	morelink	The link to read the full article (points to article.php)
- * @template_var 	string	adminlink	Link reserved to the admin to edit and delete the news
- * @template_var 	string	mail_link	Link used to send the story's url by email
- * @template_var 	string	title		Story's title presented on the form of a link
- * @template_var	string	news_title	Just the news title
- * @template_var	string	topic_title	Just the topic's title
- * @template_var	int		hits		Number of times the article was read
- * @template_var 	int		files_attached	Number of files attached to this news
- * @template_var 	string	attached_link	An URL pointing to the attached files
- * @template_var 	string	topic_color	The topic's color
- * @template_var 	int		columnwidth	column's width
- * @template_var 	int		displaynav	To know if we must display the navigation's box
- * @template_var 	string	lang_go		fixed text : Go!
- * @template_var 	string	lang_morereleases	fixed text : More releases in
- * @template_var 	string	lang_on		fixed text : on
- * @template_var 	string	lang_postedby	fixed text : Posted by
- * @template_var 	string	lang_printerpage	fixed text : Printer Friendly Page
- * @template_var 	string	lang_ratethisnews	fixed text : Rate this News
- * @template_var 	string	lang_ratingc	fixed text : Rating:
- * @template_var 	string	lang_reads		fixed text : reads
- * @template_var 	string	lang_sendstory	fixed text : Send this Story to a Friend
- * @template_var 	string	 topic_select	contains the topics selector
-*/
-include_once '../../mainfile.php';
-include_once XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php';
-include_once XOOPS_ROOT_PATH.'/modules/news/class/class.sfiles.php';
-include_once XOOPS_ROOT_PATH."/modules/news/class/class.newstopic.php";
-include_once XOOPS_ROOT_PATH."/modules/news/include/functions.php";
-include_once XOOPS_ROOT_PATH."/class/xoopstree.php";
-include_once XOOPS_ROOT_PATH."/class/tree.php";
+/*********************************************************************************************
+ * Achtungbaby Flamework
+ ********************************** License: GPLv3 *******************************************
+ * Copyright (C) 2012 Yoshi Sakai (A.K.A. bluemooninc)
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  any later version.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *********************************************************************************************/
+require_once '../../mainfile.php'; // Load XOOPS Config
 
-$storytopic=0;
-if(isset($_GET['storytopic'])) {
-	$storytopic=intval($_GET['storytopic']);
-} else {
-	if(isset($_GET['topic_id'])) {
-		$storytopic=intval($_GET['topic_id']);
-	}
+function errorMessage($errorMessage)
+{
+	echo("<h1>" . $errorMessage[0] . "</h1>");
+	echo("<h2>Error: " . $errorMessage[1] . "</h2>");
+	echo("<h2>Error: " . $errorMessage[2] . "</h2>");
+	echo $errorMessage[3] . "<br />";
+	echo "<b>" . $errorMessage[4] . "</b><br />";
+	echo $errorMessage[5] . "<hr />";
 }
 
-if ($storytopic) {
-    $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler =& xoops_gethandler('groupperm');
-    if (!$gperm_handler->checkRight('news_view', $storytopic, $groups, $xoopsModule->getVar('mid'))) {
-        redirect_header(XOOPS_URL.'/modules/news/index.php', 3, _NOPERM);
-        exit();
-    }
-	$xoopsOption['storytopic'] = $storytopic;
-} else {
-	$xoopsOption['storytopic'] = 0;
+/*********************************************************************************************
+ * Config Section
+ *********************************************************************************************/
+//$mydirname = basename(dirname(preg_replace("/\/app\/webroot/", "", __FILE__)));
+$mydirname = basename(dirname(preg_replace("/\/app\/webroot/", "", preg_replace("/\\\\/", "/", __FILE__))));
+define ('_MY_MODULE_PATH', XOOPS_MODULE_PATH . '/' . $mydirname . '/');
+define ('_MY_MODULE_URL', XOOPS_MODULE_URL . '/' . $mydirname . '/');
+
+$controllerAppPath = "app/Controller/";
+$modelAppPath = "app/Model/";
+$ext = ".php";
+foreach ($_GET as $key => $val) {
+	$_key = htmlspecialchars($key, ENT_QUOTES, _CHARSET);
+	$_val = htmlspecialchars($val, ENT_QUOTES, _CHARSET);
+	if (substr($_key, 0, 1) == "/") {
+		$params[] = explode("/", $_key);
+	}
 }
-if (isset($_GET['storynum'])) {
-	$xoopsOption['storynum'] = intval($_GET['storynum']);
-	if ($xoopsOption['storynum'] > 30) {
-		$xoopsOption['storynum'] = $xoopsModuleConfig['storyhome'];
-	}
-} else {
-	$xoopsOption['storynum'] = $xoopsModuleConfig['storyhome'];
+if(!$params){
+	$root = XCube_Root::getSingleton();
+	$params[0][1] = $root->mContext->mRequest->getRequest( 'action' );
 }
-
-if (isset($_GET['start']) ) {
-	$start = intval($_GET['start']);
-} else {
-	$start = 0;
-}
-
-if (empty($xoopsModuleConfig['newsdisplay']) || $xoopsModuleConfig['newsdisplay'] == 'Classic' || $xoopsOption['storytopic'] > 0) {
-    $showclassic = 1;
-} else {
-    $showclassic = 0;
-}
-$firsttitle='';
-$topictitle='';
-$myts =& MyTextSanitizer::getInstance();
-$sfiles = new sFiles();
-
-$column_count = $xoopsModuleConfig['columnmode'];
-
-if ($showclassic) {
-    $xoopsOption['template_main'] = 'news_index.html';
-	include_once XOOPS_ROOT_PATH.'/header.php';
-	$xt = new NewsTopic();
-
-    $xoopsTpl->assign('columnwidth', intval(1/$column_count*100));
-	if ($xoopsModuleConfig['ratenews']) {
-		$xoopsTpl->assign('rates', true);
-		$xoopsTpl->assign('lang_ratingc', _MD_RATINGC);
-		$xoopsTpl->assign('lang_ratethisnews', _MD_RATETHISNEWS);
-	} else {
-		$xoopsTpl->assign('rates', false);
-	}
-
-	if($xoopsOption['storytopic']) {
-		$xt->getTopic($xoopsOption['storytopic']);
-		$xoopsTpl->assign('topic_description', $xt->topic_description('S'));
-		$xoopsTpl->assign('topic_title', $xt->topic_title('S')); //by makinosuke
-		$xoopsTpl->assign('topic_color', '#'.$xt->topic_color('S'));
-		$topictitle=$xt->topic_title();
-	}
-
-	if ($xoopsModuleConfig['displaynav'] == 1 ) {
-        $xoopsTpl->assign('displaynav', true);
-
-		$allTopics = $xt->getAllTopics($xoopsModuleConfig['restrictindex']);
-		$topic_tree = new XoopsObjectTree($allTopics, 'topic_id', 'topic_pid');
-		$topic_select = $topic_tree->makeSelBox('storytopic', 'topic_title', '-- ', $xoopsOption['storytopic'], true);
-
-        $xoopsTpl->assign('topic_select', $topic_select);
-        $storynum_options = '';
-        for ( $i = 5; $i <= 30; $i = $i + 5 ) {
-            $sel = '';
-            if ($i == $xoopsOption['storynum']) {
-                $sel = ' selected="selected"';
-            }
-            $storynum_options .= '<option value="'.$i.'"'.$sel.'>'.$i.'</option>';
-        }
-        $xoopsTpl->assign('storynum_options', $storynum_options);
-    } else {
-        $xoopsTpl->assign('displaynav', false);
-    }
-	if($xoopsOption['storytopic']==0) {
-		$topic_frontpage=true;
-	} else {
-		$topic_frontpage=false;
-	}
-	$sarray = NewsStory::getAllPublished($xoopsOption['storynum'], $start, $xoopsModuleConfig['restrictindex'], $xoopsOption['storytopic'], 0, true, 'published', $topic_frontpage);
-
-    $scount = count($sarray);
-    $xoopsTpl->assign('story_count', $scount);
-    $k = 0;
-    $columns = array();
-    if($scount>0)
-    {
-    	$storieslist=array();
-    	foreach ($sarray as $storyid => $thisstory) {
-    		$storieslist[]=$thisstory->storyid();
-    	}
-		$filesperstory = $sfiles->getCountbyStories($storieslist);
-
-	    foreach ($sarray as $storyid => $thisstory) {
-	    	$filescount = array_key_exists($thisstory->storyid(),$filesperstory) ? $filesperstory[$thisstory->storyid()] : 0;
-        	$story = $thisstory->prepare2show($filescount);
-        	// The line below can be used to display a Permanent Link image
-        	// $story['title'] .= "&nbsp;&nbsp;<a href='".XOOPS_URL."/modules/news/article.php?storyid=".$sarray[$i]->storyid()."'><img src='".XOOPS_URL."/modules/news/images/x.gif' alt='Permanent Link' /></a>";
-        	$story['news_title'] = $story['title'];
-        	$story['title'] = $thisstory->textlink().'&nbsp;:&nbsp;'.$story['title'];
-        	$story['topic_title'] = $thisstory->textlink();
-        	$story['topic_color'] = '#'.$myts->displayTarea($thisstory->topic_color);
-	       	if($firsttitle=='') {
-//       			$firsttitle=$myts->htmlSpecialChars($thisstory->topic_title()) . ' : ' .  $myts->htmlSpecialChars($thisstory->title()); //by makinosuke @ 2008/3/25
-       		}
-        	$columns[$k][] = $story;
-        	$k++;
-        	if ($k == $column_count) {
-	            $k = 0;
-        	}
-		}
-	}
-	$xoopsTpl->assign('columns', $columns);
-	unset($story);
-
-	$totalcount = NewsStory::countPublishedByTopic($xoopsOption['storytopic'], $xoopsModuleConfig['restrictindex']);
-    if ( $totalcount > $scount ) {
-        include_once XOOPS_ROOT_PATH.'/class/pagenav.php';
-		$pagenav = new XoopsPageNav($totalcount, $xoopsOption['storynum'], $start, 'start', 'storytopic='.$xoopsOption['storytopic']);
-		if(news_isbot()) { 		// A bot is reading the news, we are going to show it all the links so that he can read everything
-        	$xoopsTpl->assign('pagenav', $pagenav->renderNav($totalcount));
-        } else {
-            $xoopsTpl->assign('pagenav', $pagenav->renderNav());
-    	}
-    } else {
-        $xoopsTpl->assign('pagenav', '');
-    }
-} else {
-    $xoopsOption['template_main'] = 'news_by_topic.html';
-    include_once XOOPS_ROOT_PATH.'/header.php';
-    $xoopsTpl->assign('columnwidth', intval(1/$column_count*100));
-	if ($xoopsModuleConfig['ratenews']) {
-		$xoopsTpl->assign('rates', true);
-		$xoopsTpl->assign('lang_ratingc', _MD_RATINGC);
-		$xoopsTpl->assign('lang_ratethisnews', _MD_RATETHISNEWS);
-	} else {
-		$xoopsTpl->assign('rates', false);
-	}
-
-	$xt = new NewsTopic();
-    $alltopics =& $xt->getTopicsList(true,$xoopsModuleConfig['restrictindex']);
-    $smarty_topics = array();
-    $topicstories = array();
-
-    foreach ($alltopics as $topicid => $topic) {
-		$allstories = NewsStory::getAllPublished($xoopsModuleConfig['storyhome'], 0, $xoopsModuleConfig['restrictindex'], $topicid);
-    	$storieslist=array();
-    	foreach ($allstories as $thisstory) {
-    		$storieslist[]=$thisstory->storyid();
-    	}
-		$filesperstory = $sfiles->getCountbyStories($storieslist);
-		foreach ($allstories as $thisstory) {
-			$filescount = array_key_exists($thisstory->storyid(),$filesperstory) ? $filesperstory[$thisstory->storyid()] : 0;
-			$topicstories[$topicid][] = $thisstory->prepare2show($filescount);
-		}
-		if(isset($topicstories[$topicid])) {
-			$smarty_topics[$topicstories[$topicid][0]['posttimestamp']] = array('title' => $topic['title'], 'stories' => $topicstories[$topicid], 'id' => $topicid, 'topic_color'=>$topic['color']);
-		}
-    }
-
-    krsort($smarty_topics);
-    $columns = array();
-    $i = 0;
-    foreach ($smarty_topics as $thistopictimestamp => $thistopic) {
-        $columns[$i][] = $thistopic;
-        $i++;
-        if ($i == $column_count) {
-            $i = 0;
-        }
-    }
-    //$xoopsTpl->assign('topics', $smarty_topics);
-    $xoopsTpl->assign('columns', $columns);
-}
-
-/**
-* Create the website navigation's bar
-*/
-// -------------------- BY MAKINOSUKE @2008/5/10 { --------------------
-$content = '';
-if(getmoduleoption('sitenavbar')){ $content=CreateSiteNavBar(); }
-// cf. 'Techniques for Web Content Accessibility Guidelines 1.0'
-// > '13.5 Provide navigation bars to highlight and give access to the navigation mechanism.'
-// ( http://www.w3.org/TR/2000/NOTE-WCAG10-TECHS-20001106/#tech-nav-bar )
-$xoopsTpl->assign('xoops_module_header', $content.'<link rel="stylesheet" type="text/css" media="screen,tv,print" href="style.css" />');
-// -------------------- } BY MAKINOSUKE @2008/5/10 --------------------
-
-/**
- * Create a clickable path from the root to the current topic (if we are viewing a topic)
- * Actually this is not used in the default templates but you can use it as you want
- * You can comment the code to optimize the requests count
+/*********************************************************************************************
+ * Controller Section
+ *********************************************************************************************/
+/*
+ * Loading
  */
-if($xoopsOption['storytopic']) {
-	$mytree = new XoopsTree($xoopsDB->prefix("topics"),"topic_id","topic_pid");
-	$topicpath = $mytree->getNicePathFromId($xoopsOption['storytopic'], "topic_title", "index.php?op=1");
-	$xoopsTpl->assign('topic_path', $topicpath);
-	unset($mytree);
-}
-
-/**
- * Create a link for the RSS feed (if the module's option is activated)
- */
-if($xoopsModuleConfig['topicsrss'] && $xoopsOption['storytopic']) {
-	$link=sprintf("<a href='%s' title='%s'><img src='%s' border=0 alt='%s'></a>",XOOPS_URL."/modules/news/backendt.php?topicid=".$xoopsOption['storytopic'], _MD_RSSFEED, XOOPS_URL."/modules/news/images/rss.gif",_MD_RSSFEED);
-	$xoopsTpl->assign('topic_rssfeed_link',$link);
-}
-
-/**
- * Assign page's title
- */
-if($firsttitle!='') {
-	$xoopsTpl->assign('xoops_pagetitle', $myts->htmlSpecialChars($firsttitle) . ' | ' . $myts->htmlSpecialChars($xoopsModule->name()));
-} else {
-	if($topictitle!='') {
-		$xoopsTpl->assign('xoops_pagetitle', $myts->htmlSpecialChars($topictitle)." | ". $myts->htmlSpecialChars($xoopsModule->name()));//by makinosuke @ 2008/3/25
-	} else {
-		$xoopsTpl->assign('xoops_pagetitle', $myts->htmlSpecialChars($xoopsModule->name()));
+$parameters = null;
+$controller_name = isset($params[0][1]) ? $params[0][1] : $mydirname;
+$controller_name = preg_replace("/_php$/i","",$controller_name);
+$method = isset($params[0][2]) ? $params[0][2] : "index";
+if (isset($params) && count($params[0]) > 3) {
+	for ($i = 3; $i < count($params[0]); $i++) {
+		$parameters[] = isset($params[0][$i]) ? addslashes(htmlspecialchars($params[0][$i], ENT_QUOTES)) : "";
 	}
 }
+$method_name = "action_" . $method;
+if (preg_match('/^[0-9a-zA-Z\._-]+$/', $controller_name)) {
+	$controllerClass = "Controller_" . ucFirst($controller_name);
+} else {
+	die("controller_name must be alpha numerics characters!");
+}
+$controllerFileName = $controller_name . $ext;
+$controllerFullPath = _MY_MODULE_PATH . $controllerAppPath . $controllerFileName;
+require_once _MY_MODULE_PATH . $controllerAppPath . 'AbstractAction.class.php';
+require_once _MY_MODULE_PATH . $modelAppPath . 'AbstractModel.class.php';
+//require_once _MY_MODULE_PATH . $controllerAppPath . 'ErrorMessageHandler.php';
 
-$xoopsTpl->assign('lang_go', _GO);
-$xoopsTpl->assign('lang_on', _ON);
-$xoopsTpl->assign('lang_printerpage', _MD_PRINTERFRIENDLY);
-$xoopsTpl->assign('lang_sendstory', _MD_SENDSTORY);
-$xoopsTpl->assign('lang_postedby', _POSTEDBY);
-$xoopsTpl->assign('lang_reads', _READS);
-$xoopsTpl->assign('lang_morereleases', _MD_MORERELEASES);
-include_once XOOPS_ROOT_PATH.'/footer.php';
-?>
+$errorMessage[3] = "class " . $controllerClass . " extends AbstractAction {";
+$errorMessage[5] = "}";
+//echo $controllerFullPath;die;
+if (!file_exists($controllerFullPath)) {
+	$errorMessage[0] = "Missing Controller";
+	$errorMessage[1] = $controllerClass . " could not be found.";
+	$errorMessage[2] = "Create the class " . $controllerClass . " below in file: " . $controllerAppPath . $controllerFileName;
+	errorMessage($errorMessage);
+}
+include_once $controllerFullPath;
+/*
+ * Execute
+ */
+$root = XCube_Root::getSingleton();
+$handler = new $controllerClass($root);
+if (!method_exists($handler, $method_name)) {
+	$errorMessage[0] = "Missing method in " . $controllerClass;
+	$errorMessage[1] = "The action '" . $method_name . "' is not defined in controller " . $controllerClass;
+	$errorMessage[2] = "Create  " . $controllerClass . "::" . $method_name . "() in file: " . $controllerAppPath . $controllerFileName;
+	$errorMessage[4] = "&nbsp;&nbsp;&nbsp;&nbsp;public function " . $method_name . "(){<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;}";
+	errorMessage($errorMessage);
+}
+//$handler->setMethod($method_name);
+$handler->setDirname($mydirname);
+$handler->setParams($parameters);
+$root->mController->mExecute->add(array(&$handler, $method_name));
+$root->mController->execute();
+/*********************************************************************************************
+ * View Section
+ *********************************************************************************************/
+$root->mController->executeHeader();
+$templatePath = _MY_MODULE_PATH . "templates/" . $handler->template;
+$errorMessage[3] = '';
+$errorMessage[4] = '';
+$errorMessage[5] = '';
+/*
+if (!file_exists($viewFullPath)){
+	$errorMessage[0] = 'Missing View';
+	$errorMessage[1] = 'The view for '. $controllerClass .'::' . $method_name.'() was not found.';
+	$errorMessage[2] = 'Confirm you have created the file: ' . $viewFullPath;
+	errorMessage($errorMessage);
+	die;
+}*/
+if (!file_exists($templatePath) || is_null($handler->template)) {
+	$errorMessage[0] = 'Missing Template';
+	$errorMessage[1] = 'The template for ' . $controllerClass . '::' . $method_name . '() was not found.';
+	if (is_null($handler->template)){
+		$errorMessage[2] = 'Set template file on '.$method_name;
+		$errorMessage[4] = "public function " . $method_name . "(){<br />&nbsp;&nbsp;&#36;this->template = '".$controller_name.".html';&nbsp;&nbsp;<br />}";
+	} else {
+		$errorMessage[2] = 'Confirm you have created the file: ' . $templatePath;
+	}
+	errorMessage($errorMessage);
+	die;
+}
+$handler->action_view();
+$root->mController->executeView();
