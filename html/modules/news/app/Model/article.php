@@ -6,7 +6,7 @@
  * Time: 14:55
  * To change this template use File | Settings | File Templates.
  */
-require_once _MY_MODULE_PATH . 'app/Model/PageNavi.class.php';
+require_once XOOPS_ROOT_PATH . '/modules/news/app/Model/PageNavi.class.php';
 
 class Model_Article extends AbstractModel
 {

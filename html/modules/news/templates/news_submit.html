@@ -1,17 +1,15 @@
 <h1><{$smarty.const._MD_SUBMITNEWS}></h1>
-<form action="?action=submit" method="post" enctype="multipart/form-data">
+&raquo;&raquo; <span class="adminnaviTitle">
+<{if $actionForm->get('storyid') }>
+	<{$actionForm->get('title')}>
+<{else}>
+	<{$smarty.const._MD_NEWS_NEW_ARTICLE}>
+<{/if}>
+</span>
+<form action="index.php?action=submit" method="post" enctype="multipart/form-data">
 	<{xoops_token form=$actionForm}>
 	<{xoops_input type=hidden name=storyid value=$actionForm->get('storyid')}>
 	<table class="table">
-		<tr>
-			<th colspan="2">
-				<{if $actionForm->get('storyid') }>
-					<{$actionForm->get('uid')}>
-				<{else}>
-					<{$smarty.const._MD_POSTNEWARTICLE}>
-				<{/if}>
-			</th>
-		</tr>
 		<tr>
 			<td class="head"><{$smarty.const._MD_TOPIC}></td>
 			<td class="<{cycle values='odd,even'}>">
@@ -99,3 +97,15 @@
 		<{$formset}>
 	</div>
 </div>
+<script>
+	$(function(){
+		$("input[type=text]").change(function() {
+			$(window).on('beforeunload', function() {
+				return '投稿が完了していません。このまま移動しますか？';
+			});
+		});
+		$("input[type=submit]").click(function() {
+			$(window).off('beforeunload');
+		});
+	});
+</script>

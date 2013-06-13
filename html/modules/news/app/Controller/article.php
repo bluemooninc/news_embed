@@ -12,7 +12,7 @@ require_once _MY_MODULE_PATH . 'app/Model/article.php';
 require_once _MY_MODULE_PATH . 'app/Model/GroupPerm.class.php';
 require_once _MY_MODULE_PATH . 'app/View/view.php';
 
-class Controller_Article extends AbstractAction {
+class Controller_Article extends AbstractController {
 	protected $storyObject = null;
 	protected $topicObject = null;
 	protected $userObject = null;

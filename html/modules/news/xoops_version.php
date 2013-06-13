@@ -24,7 +24,6 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-
 $modversion['name'] = _MI_NEWS_NAME;
 $modversion['version'] = 2.00;
 $modversion['description'] = _MI_NEWS_DESC;
@@ -37,10 +36,10 @@ $modversion['image'] = "images/news_slogo.png";
 $modversion['dirname'] = "news";
 
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
-$modversion['tables'][] = "{prefix}_{dirname}_stories";
-$modversion['tables'][] = "{prefix}_{dirname}_topics";
-$modversion['tables'][] = "{prefix}_{dirname}_stories_files";
-$modversion['tables'][] = "{prefix}_{dirname}_stories_votedata";
+$modversion['tables'][] = "{prefix}_news_stories";
+$modversion['tables'][] = "{prefix}_news_topics";
+$modversion['tables'][] = "{prefix}_news_stories_files";
+$modversion['tables'][] = "{prefix}_news_stories_votedata";
 
 // Admin things
 $modversion['hasAdmin'] = 1;

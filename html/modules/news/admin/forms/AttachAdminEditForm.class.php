@@ -81,6 +81,7 @@ class news_AttachAdminEditForm extends XCube_ActionForm
 		$fileUploder = new XCube_FormFile('downloadname');
 		$fileUploder->fetch();
 		if ($fileUploder->hasUploadFile()) {
+			adump($_FILES);
 			$obj->set('mimetype', $fileUploder->getContentType());
 			// set before rename
 			$obj->set('downloadname', $fileUploder->getFileName());

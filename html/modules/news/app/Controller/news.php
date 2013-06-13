@@ -9,7 +9,7 @@
 require_once _MY_MODULE_PATH . 'app/Model/article.php';
 require_once _MY_MODULE_PATH . 'app/View/view.php';
 
-class Controller_News extends AbstractAction {
+class Controller_News extends AbstractController {
 	protected $topicObject;
 	protected $topicArray;
 	protected $storyObjects;

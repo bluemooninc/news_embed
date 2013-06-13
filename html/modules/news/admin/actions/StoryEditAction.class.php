@@ -18,12 +18,13 @@ class news_StoryEditAction extends news_AbstractEditAction
 	
 	function &_getHandler()
 	{
-		$handler =& xoops_getmodulehandler('stories');
-		return $handler;
+		$this->mObjectHandler =& xoops_getmodulehandler('stories');
+		return $this->mObjectHandler;
 	}
 
 	function _setupActionForm()
 	{
+		$this->_getHandler();
 		$this->mActionForm =new news_StoryAdminEditForm();
 		$this->mActionForm->prepare();
 	}

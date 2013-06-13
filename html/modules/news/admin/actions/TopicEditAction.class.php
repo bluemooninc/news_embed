@@ -14,13 +14,14 @@ class news_TopicEditAction extends news_AbstractEditAction
 	
 	function &_getHandler()
 	{
-		$handler =& xoops_getmodulehandler('topics');
-		return $handler;
+		$this->mObjectHandler =& xoops_getmodulehandler('topics');
+		return $this->mObjectHandler;
 	}
 
 	function _setupActionForm()
 	{
-		$this->mActionForm =new news_TopicAdminEditForm();
+		$this->_getHandler();
+		$this->mActionForm = new news_TopicAdminEditForm();
 		$this->mActionForm->prepare();
 	}
 

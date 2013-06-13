@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class Controller_Comment_reply extends AbstractAction {
+class Controller_Comment_reply extends AbstractController {
 	public function action_index(){
 		// using core comment code
 		$com_itemid = $this->root->mContext->mRequest->getRequest('com_itemid');

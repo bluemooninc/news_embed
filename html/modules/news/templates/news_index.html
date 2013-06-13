@@ -13,7 +13,8 @@
 		<a href="#" data-toggle="dropdown" role="button" id="drop<{$topic.topic_id}>" class="dropdown-toggle"><{$topic.topic_title}><b class="caret"></b></a>
 		<ul aria-labelledby="drop<{$topic.topic_id}>" role="menu" class="dropdown-menu" id="menu<{$topic.topic_id}>">
 			<{foreach item=child from=$topic.child}>
-			<li role="presentation"><a href="<{$xoops_url}>/modules/news/index.php?action=news&topicid=<{$child.topic_id}>" tabindex="-1" role="menuitem"><{$child.topic_title}></a></li>
+				<li role="presentation">
+				<a href="<{$xoops_url}>/modules/news/index.php?action=news&topicid=<{$child.topic_id}>" tabindex="-1" role="menuitem"><{$child.topic_title}></a></li>
 			<{/foreach}>
 		</ul>
 	<{else}>
@@ -26,13 +27,12 @@
 </ul> <!-- /tabs -->
 </div>
 
-
 <ul>
 	<{foreach item=story from=$storyObjects}>
 	<li>
 		<{if $story->getVar('published')}>
 		<a href="<{$xoops_url}>/modules/news/index.php?action=article&storyid=<{$story->getVar('storyid')}>">
-			<{$story->getVar('published')|date_format:"%G-%m-%d"}>: <{$story->getVar('title')}>
+			<{$story->getVar('published')|date_format:"%Y/%m/%d"}>: <{$story->getVar('title')}>
 		</a>
 		<{else}>
 		<a class="badge" href="<{$xoops_url}>/modules/news/index.php?action=submit&storyid=<{$story->getVar('storyid')}>">
@@ -42,7 +42,6 @@
 	</li>
 	<{/foreach}>
 </ul>
-
 
 <div id="news-wrapper">
 	<{if $displaynav == true}>

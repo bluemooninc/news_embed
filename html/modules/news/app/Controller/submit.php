@@ -10,7 +10,7 @@ require_once _MY_MODULE_PATH . 'app/Model/article.php';
 require_once _MY_MODULE_PATH . 'app/Model/GroupPerm.class.php';
 require_once _MY_MODULE_PATH . 'app/View/view.php';
 
-class Controller_Submit extends AbstractAction {
+class Controller_Submit extends AbstractController {
 	protected $topicid=0;
 	protected $storyid;
 	protected $action;

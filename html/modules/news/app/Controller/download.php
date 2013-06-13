@@ -16,7 +16,7 @@ include_once _MY_MODULE_PATH . "/class/mbfunction.class.php";
 include_once _MY_MODULE_PATH . "/class/download.class.php";
 include_once _MY_MODULE_PATH . "/class/class.sfiles.php";
 
-class Controller_Download extends AbstractAction
+class Controller_Download extends AbstractController
 {
 	public function action_index()
 	{

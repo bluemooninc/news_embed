@@ -10,7 +10,7 @@ require_once _MY_MODULE_PATH . 'app/Model/article.php';
 require_once _MY_MODULE_PATH . 'app/View/view.php';
 require_once _MY_MODULE_PATH . 'admin/forms/AttachAdminEditForm.class.php';   // loding ActionForm
 
-class Controller_DeleteAttached extends AbstractAction {
+class Controller_DeleteAttached extends AbstractController {
 	protected $fileObject;
 	protected $mActionForm;
 	protected $action;

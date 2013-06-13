@@ -37,6 +37,7 @@ define ('_MY_MODULE_URL', XOOPS_MODULE_URL . '/' . $mydirname . '/');
 $controllerAppPath = "app/Controller/";
 $modelAppPath = "app/Model/";
 $ext = ".php";
+$params = array();
 foreach ($_GET as $key => $val) {
 	$_key = htmlspecialchars($key, ENT_QUOTES, _CHARSET);
 	$_val = htmlspecialchars($val, ENT_QUOTES, _CHARSET);
@@ -71,11 +72,10 @@ if (preg_match('/^[0-9a-zA-Z\._-]+$/', $controller_name)) {
 }
 $controllerFileName = $controller_name . $ext;
 $controllerFullPath = _MY_MODULE_PATH . $controllerAppPath . $controllerFileName;
-require_once _MY_MODULE_PATH . $controllerAppPath . 'AbstractAction.class.php';
-require_once _MY_MODULE_PATH . $modelAppPath . 'AbstractModel.class.php';
+require_once _MY_MODULE_PATH . $controllerAppPath . 'AbstractController.class.php';
 //require_once _MY_MODULE_PATH . $controllerAppPath . 'ErrorMessageHandler.php';
 
-$errorMessage[3] = "class " . $controllerClass . " extends AbstractAction {";
+$errorMessage[3] = "class " . $controllerClass . " extends AbstractController {";
 $errorMessage[5] = "}";
 //echo $controllerFullPath;die;
 if (!file_exists($controllerFullPath)) {

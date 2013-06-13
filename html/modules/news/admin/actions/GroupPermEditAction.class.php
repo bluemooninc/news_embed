@@ -13,6 +13,7 @@ class news_GroupPermEditAction extends news_AbstractEditAction
 	
 	function _getHandler()
 	{
+
 	}
 
 	function _setupActionForm()

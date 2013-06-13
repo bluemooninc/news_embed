@@ -106,6 +106,7 @@ define("_MD_AUTHOR_ID","投稿者のID");
 define("_MD_POST_SORRY","すみません、トピックが無いか、投稿許可されたトピックが無いかのどちらかです。あなたがこのウェブマスターのであるなら、「アクセス権」の設定で'投稿可'を設定しに行ってください。");
 
 // Action Form
+define("_MD_NEWS_NEW_ARTICLE","新しい記事の登録");
 define("_MD_NEWS_ERROR_REQUIRED","入力必須項目");
 define("_MD_NEWS_ATTACHFILE","添付ファイル");
 define("_MD_NEWS_STORY_ID","記事ID");

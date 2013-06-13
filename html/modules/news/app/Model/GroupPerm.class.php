@@ -7,8 +7,6 @@
  * To change this template use File | Settings | File Templates.
  */
 
-require_once XOOPS_MODULE_PATH . "/news/app/Model/AbstractModel.class.php";
-
 class Model_GroupPerm extends AbstractModel
 {
 	protected $module_id;
