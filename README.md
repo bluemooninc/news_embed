@@ -1,10 +1,10 @@
-h1. news_embed
+news_embed
 ----------
 
 What's this
 -----------
 
-Add news application for your BluemoonXoops site.
+Add news application for your XoopsEC / BluemoonXoops site.
 
 Copyright
 ---------
