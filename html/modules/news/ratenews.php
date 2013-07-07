@@ -131,7 +131,7 @@ if(!empty($_POST['submit'])) {			// The form was submited
 
 	// Check if News POSTER is voting (UNLESS Anonymous users allowed to post)
 	if ($ratinguser != 0) {
-		$result=$xoopsDB->query("SELECT uid FROM ".$xoopsDB->prefix("stories")." WHERE storyid=$storyid");
+		$result=$xoopsDB->query("SELECT uid FROM ".$xoopsDB->prefix("news_stories")." WHERE storyid=$storyid");
 		while(list($ratinguserDB)=$xoopsDB->fetchRow($result)) {
 			if ($ratinguserDB==$ratinguser) {
 				redirect_header(XOOPS_URL."/modules/news/index.php",4,_MD_CANTVOTEOWN);
@@ -173,7 +173,7 @@ if(!empty($_POST['submit'])) {			// The form was submited
 } else {		// Display the form to vote
 	$xoopsOption['template_main'] = 'news_ratenews.html';
     include_once XOOPS_ROOT_PATH."/header.php";
-    $result=$xoopsDB->query("SELECT title FROM ".$xoopsDB->prefix("stories")." WHERE storyid=$storyid");
+    $result=$xoopsDB->query("SELECT title FROM ".$xoopsDB->prefix("news_stories")." WHERE storyid=$storyid");
     list($title) = $xoopsDB->fetchRow($result);
     $title = $myts->htmlSpecialChars($title);
     $xoopsTpl->assign('news', array('storyid' => $storyid, 'title' => $title));

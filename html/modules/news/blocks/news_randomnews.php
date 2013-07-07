@@ -112,7 +112,7 @@ function b_news_randomnews_edit($options) {
     $form .= "<br /><br />"._MB_SPOTLIGHT_TOPIC."<br /><select id='options[4]' name='options[]' multiple='multiple'>";
 
     include_once XOOPS_ROOT_PATH."/class/xoopsstory.php";
-    $xt = new XoopsTopic($xoopsDB->prefix("topics"));
+    $xt = new XoopsTopic($xoopsDB->prefix("news_topics"));
     $alltopics = $xt->getTopicsList();
     $alltopics[0]['title'] = _MB_SPOTLIGHT_ALL_TOPICS;
     ksort($alltopics);

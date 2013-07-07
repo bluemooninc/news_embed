@@ -204,7 +204,7 @@ function b_news_top_show($options) {
         	$spotlight = array();
 			$spotlight['title'] = $tmpstory->title();
        		if ($options[7] != "") {
-	        	$spotlight['image'] = sprintf("<a href='%s'>%s</a>", XOOPS_URL.'/modules/news/article.php?storyid='.$tmpstory->storyid(),$myts->displayTarea($options[7], $tmpstory->nohtml));
+	        	$spotlight['image'] = sprintf("<a href='%s'>%s</a>", XOOPS_URL.'/modules/news/index.php?action=article&storyid='.$tmpstory->storyid(),$myts->displayTarea($options[7], $tmpstory->nohtml));
 			}
        		$spotlight['text'] = $tmpstory->hometext();
        		$spotlight['id'] = $tmpstory->storyid();
@@ -218,8 +218,8 @@ function b_news_top_show($options) {
 				$spotlight['read_more']=false;
 			}
 
-       		$spotlight['readmore'] = sprintf("<a href='%s'>%s</a>", XOOPS_URL.'/modules/news/article.php?storyid='.$tmpstory->storyid(),_MB_READMORE);
-       		$spotlight['title_with_link'] = sprintf("<a href='%s'>%s</a>", XOOPS_URL.'/modules/news/article.php?storyid='.$tmpstory->storyid(),$tmpstory->title());
+       		$spotlight['readmore'] = sprintf("<a href='%s'>%s</a>", XOOPS_URL.'/modules/news/index.php?action=article&storyid='.$tmpstory->storyid(),_MB_READMORE);
+       		$spotlight['title_with_link'] = sprintf("<a href='%s'>%s</a>", XOOPS_URL.'/modules/news/index.php?action=article&storyid='.$tmpstory->storyid(),$tmpstory->title());
        		if($tmpstory->votes()==1) {
 				$spotlight['number_votes']=_MD_ONEVOTE;
 			} else {
@@ -281,7 +281,7 @@ function b_news_top_show($options) {
 						$news['infotips'] = '';
 					}
 
-           			$news['title_with_link'] = sprintf("<a href='%s'%s>%s</a>", XOOPS_URL.'/modules/news/article.php?storyid='.$story->storyid(),$news['infotips'],$title);
+           			$news['title_with_link'] = sprintf("<a href='%s'%s>%s</a>", XOOPS_URL.'/modules/news/index.php?action=article&storyid='.$story->storyid(),$news['infotips'],$title);
            			$spotlight['news'][] = $news;
            		}
 			}
@@ -311,7 +311,7 @@ function b_news_top_show($options) {
 							$title = xoops_substr(strip_tags($title),0,$options[2]+3);
 						}
             			if ($options[7] != "") {
-			                $news['image'] = sprintf("<a href='%s'>%s</a>", XOOPS_URL.'/modules/news/article.php?storyid='.$story->storyid(),$myts->displayTarea($options[7], $story->nohtml));
+			                $news['image'] = sprintf("<a href='%s'>%s</a>", XOOPS_URL.'/modules/news/index.php?action=article&storyid='.$story->storyid(),$myts->displayTarea($options[7], $story->nohtml));
             			}
                 		if($options[3]>0) {
 		                	$news['text'] = xoops_substr(strip_tags($story->hometext()), 0, $options[3]+3);
@@ -329,7 +329,7 @@ function b_news_top_show($options) {
 						} else {
 							$news['infotips'] = '';
 						}
-            			$news['title']=sprintf("<a href='%s' %s>%s</a>", XOOPS_URL.'/modules/news/article.php?storyid='.$story->storyid(),$news['infotips'],$title);
+            			$news['title']=sprintf("<a href='%s' %s>%s</a>", XOOPS_URL.'/modules/news/index.php?action=article&storyid='.$story->storyid(),$news['infotips'],$title);
             			$news['id'] = $story->storyid();
             			$news['date'] = formatTimestamp($story->published(), $dateformat);
             			$news['hits'] = $story->counter();
@@ -344,7 +344,7 @@ function b_news_top_show($options) {
             			} else {
 	            			$news['author'] = '';
             			}
-            			$news['title_with_link'] = sprintf("<a href='%s'%s>%s</a>", XOOPS_URL.'/modules/news/article.php?storyid='.$story->storyid(),$news['infotips'],$title);
+            			$news['title_with_link'] = sprintf("<a href='%s'%s>%s</a>", XOOPS_URL.'/modules/news/index.php?action=article&storyid='.$story->storyid(),$news['infotips'],$title);
             			$block['news'][] = $news;
             		}
             		$block['smallheader']=$smallheader;
@@ -380,7 +380,8 @@ function b_news_top_show($options) {
     	if (isset($options[14]) && $options[14] == 0) {
 	        $stories = $tmpstory->getAllPublished($options[1],0,$restricted,0,1,true,$options[0]);
 	    } else {
-//        	$topics = array_slice($options, 14);
+        	//$topics = array_slice($options, 14);
+		    $topics=null;
         	$stories = $tmpstory->getAllPublished($options[1],0,$restricted,$topics,1,true,$options[0]);
     	}
 
@@ -409,7 +410,7 @@ function b_news_top_show($options) {
         		if($visible) {
             		$spotlight['title'] = $title;
             		if ($options[7] != "") {
-		                $spotlight['image']= sprintf("<a href='%s'>%s</a>", XOOPS_URL.'/modules/news/article.php?storyid='.$story->storyid(),$myts->displayTarea($options[7], $story->nohtml));
+		                $spotlight['image']= sprintf("<a href='%s'>%s</a>", XOOPS_URL.'/modules/news/index.php?action=article&storyid='.$story->storyid(),$myts->displayTarea($options[7], $story->nohtml));
             		}
             		$spotlight['text'] = $story->hometext();
             		$spotlight['id'] = $story->storyid();
@@ -499,7 +500,7 @@ function b_news_top_show($options) {
         		$spotlight = array();
         		$spotlight['title'] = xoops_substr($spotlightArticle->title(),0,($options[2]-1));;
         		if ($options[7] != "") {
-		            $spotlight['image'] = sprintf("<a href='%s'>%s</a>", XOOPS_URL.'/modules/news/article.php?storyid='.$spotlightArticle->storyid(),$myts->displayTarea($options[7], $spotlightArticle->nohtml));
+		            $spotlight['image'] = sprintf("<a href='%s'>%s</a>", XOOPS_URL.'/modules/news/index.php?action=article&storyid='.$spotlightArticle->storyid(),$myts->displayTarea($options[7], $spotlightArticle->nohtml));
         		}
 				$spotlight['topicid'] = $spotlightArticle->topicid();
         		$spotlight['topic_title'] = $spotlightArticle->topic_title();
@@ -630,7 +631,7 @@ function b_news_top_edit($options) {
     include_once XOOPS_ROOT_PATH."/modules/news/class/class.newstopic.php";
     $topics_arr=array();
     include_once XOOPS_ROOT_PATH . "/class/xoopstree.php";
-    $xt = new XoopsTree($xoopsDB->prefix("topics"), "topic_id", "topic_pid");
+    $xt = new XoopsTree($xoopsDB->prefix("news_topics"), "topic_id", "topic_pid");
     $topics_arr = $xt->getChildTreeArray(0,"topic_title");
     $size = count($options);
     foreach ($topics_arr as $onetopic) {

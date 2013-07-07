@@ -47,8 +47,8 @@ function news_search($queryarray, $andor, $limit, $offset, $userid){
 		$groups = XOOPS_GROUP_ANONYMOUS;
 	}
 
-	$sql = "SELECT storyid, topicid, uid, title, created,topic_title FROM ".$xoopsDB->prefix("stories")
-		." s LEFT JOIN ".$xoopsDB->prefix("topics")." t ON s.topicid=t.topic_id"." WHERE (published>0 AND published<=".time().") ";
+	$sql = "SELECT storyid, topicid, uid, title, created,topic_title FROM ".$xoopsDB->prefix("news_stories")
+		." s LEFT JOIN ".$xoopsDB->prefix("news_topics")." t ON s.topicid=t.topic_id"." WHERE (published>0 AND published<=".time().") ";
 	if ( $userid != 0 ) {
 		$sql .= " AND uid=".$userid." ";
 	}

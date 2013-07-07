@@ -45,7 +45,7 @@ class sFiles {
     function sFiles($fileid=-1)
     {
 		$this->db =& Database::getInstance();
-        $this->table = $this->db->prefix("stories_files");
+        $this->table = $this->db->prefix("news_stories_files");
         $this->storyid = 0;
         $this->filerealname = "";
         $this->date = 0;

@@ -293,7 +293,7 @@ $xoopsTpl->assign('xoops_module_header', $content.'<link rel="stylesheet" type="
  * You can comment the code to optimize the requests count
  */
 if($xoopsOption['storytopic']) {
-	$mytree = new XoopsTree($xoopsDB->prefix("topics"),"topic_id","topic_pid");
+	$mytree = new XoopsTree($xoopsDB->prefix("news_topics"),"topic_id","topic_pid");
 	$topicpath = $mytree->getNicePathFromId($xoopsOption['storytopic'], "topic_title", "index.php?op=1");
 	$xoopsTpl->assign('topic_path', $topicpath);
 	unset($mytree);

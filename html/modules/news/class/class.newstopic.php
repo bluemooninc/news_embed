@@ -43,7 +43,7 @@ class NewsTopic extends XoopsTopic
 	function NewsTopic($topicid=0)
 	{
 		$this->db =& Database::getInstance();
-		$this->table = $this->db->prefix("topics");
+		$this->table = $this->db->prefix("news_topics");
 		if ( is_array($topicid) ) {
 			$this->makeTopic($topicid);
 		} elseif ( $topicid != 0 ) {

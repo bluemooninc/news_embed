@@ -6,8 +6,9 @@
  * Time: 11:07
  * To change this template use File | Settings | File Templates.
  */
+include_once XOOPS_ROOT_PATH . '/modules/news/app/Model/AbstractNewsModel.class.php';
 
-class Model_GroupPerm extends AbstractModel
+class Model_GroupPerm extends AbstractNewsModel
 {
 	protected $module_id;
 	protected $mHandler;

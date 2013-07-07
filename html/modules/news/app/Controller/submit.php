@@ -6,9 +6,9 @@
  * Time: 22:39
  * To change this template use File | Settings | File Templates.
  */
-require_once _MY_MODULE_PATH . 'app/Model/article.php';
-require_once _MY_MODULE_PATH . 'app/Model/GroupPerm.class.php';
-require_once _MY_MODULE_PATH . 'app/View/view.php';
+include_once _MY_MODULE_PATH . 'app/Model/article.php';
+include_once _MY_MODULE_PATH . 'app/Model/GroupPerm.class.php';
+include_once _MY_MODULE_PATH . 'app/View/view.php';
 
 class Controller_Submit extends AbstractController {
 	protected $topicid=0;
@@ -27,7 +27,7 @@ class Controller_Submit extends AbstractController {
 	}
 	private function &_setupActionForm($object)
 	{
-		require_once XOOPS_ROOT_PATH . '/modules/news/admin/forms/StoryAdminEditForm.class.php';
+		include_once XOOPS_ROOT_PATH . '/modules/news/admin/forms/StoryAdminEditForm.class.php';
 		$mActionForm = new news_StoryAdminEditForm();
 		$mActionForm->prepare();
 		$mActionForm->load($object);
@@ -36,7 +36,7 @@ class Controller_Submit extends AbstractController {
 	private function &_setupAttachActionForm(&$storyObject)
 	{
 		// loding ActionForm
-		require_once XOOPS_ROOT_PATH . '/modules/news/admin/forms/AttachAdminEditForm.class.php';
+		include_once XOOPS_ROOT_PATH . '/modules/news/admin/forms/AttachAdminEditForm.class.php';
 		// Create blank Object and set initial parameter
 		$attachHandler = xoops_getmodulehandler('stories_files');
 		$attachObject = $attachHandler->create();

@@ -609,7 +609,7 @@ function topicsmanager()
     $uploadirectory="/modules/" . $xoopsModule -> dirname().'/images/topics';
     $start = isset($_GET['start']) ? intval($_GET['start']) : 0;
 
-	$xt = new XoopsTree($xoopsDB->prefix("topics"), "topic_id", "topic_pid");
+	$xt = new XoopsTree($xoopsDB->prefix("news_topics"), "topic_id", "topic_pid");
 	$topics_arr = $xt->getChildTreeArray(0,"topic_title");
 	$totaltopics = count($topics_arr);
 	$class='';
@@ -633,7 +633,7 @@ function topicsmanager()
 				$action=sprintf("<a href='%s'>%s</a> - <a href='%s'>%s</a>",$linkedit,_AD_EDIT , $linkdelete, _AD_DELETE);
 				$parent='&nbsp;';
 				if($topics_arr[$tmpcpt]['topic_pid']>0)	{
-					$xttmp = new XoopsTopic($xoopsDB->prefix("topics"),$topics_arr[$tmpcpt]['topic_pid']);
+					$xttmp = new XoopsTopic($xoopsDB->prefix("news_topics"),$topics_arr[$tmpcpt]['topic_pid']);
 					$parent = $xttmp->topic_title();
 					unset($xttmp);
 				}
@@ -832,10 +832,10 @@ function delTopic()
     if (!isset($_POST['ok'])) {
         xoops_cp_header();
         echo "<h4>" . _AD_CONFIG . "</h4>";
-        $xt = new XoopsTopic( $xoopsDB->prefix("topics"), intval($_GET['topic_id']));
+        $xt = new XoopsTopic( $xoopsDB->prefix("news_topics"), intval($_GET['topic_id']));
         xoops_confirm(array( 'op' => 'delTopic', 'topic_id' => intval($_GET['topic_id']), 'ok' => 1), 'index.php', _AD_WAYSYWTDTTAL . '<br />' . $xt->topic_title('S'));
     } else {
-        $xt = new XoopsTopic($xoopsDB->prefix("topics"), intval($_POST['topic_id']));
+        $xt = new XoopsTopic($xoopsDB->prefix("news_topics"), intval($_POST['topic_id']));
         // get all subtopics under the specified topic
         $topic_arr = $xt->getAllChildTopics();
         array_push( $topic_arr, $xt );

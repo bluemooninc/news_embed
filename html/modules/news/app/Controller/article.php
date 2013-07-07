@@ -8,9 +8,9 @@
  */
 
 //namespace Controller;
-require_once _MY_MODULE_PATH . 'app/Model/article.php';
-require_once _MY_MODULE_PATH . 'app/Model/GroupPerm.class.php';
-require_once _MY_MODULE_PATH . 'app/View/view.php';
+include_once _MY_MODULE_PATH . 'app/Model/article.php';
+include_once _MY_MODULE_PATH . 'app/Model/GroupPerm.class.php';
+include_once _MY_MODULE_PATH . 'app/View/view.php';
 
 class Controller_Article extends AbstractController {
 	protected $storyObject = null;
@@ -40,7 +40,7 @@ class Controller_Article extends AbstractController {
 		$xoopsModule = $this->root->mContext->mXoopsModule;
 		$xoopsModuleConfig = $this->root->mContext->mModuleConfig;
 		global $xoopsTpl;
-		require_once XOOPS_ROOT_PATH . '/include/comment_view.php';
+		include_once XOOPS_ROOT_PATH . '/include/comment_view.php';
 	}
 	public function action_view(){
 		$view = new View($this->root);

@@ -6,8 +6,8 @@
  * Time: 7:35
  * To change this template use File | Settings | File Templates.
  */
-require_once _MY_MODULE_PATH . 'app/Model/article.php';
-require_once _MY_MODULE_PATH . 'app/View/view.php';
+include_once _MY_MODULE_PATH . 'app/Model/article.php';
+include_once _MY_MODULE_PATH . 'app/View/view.php';
 
 class Controller_News extends AbstractController {
 	protected $topicObject;

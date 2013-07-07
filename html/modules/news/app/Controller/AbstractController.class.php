@@ -2,7 +2,7 @@
 /* $Id: $ */
 
 if (!defined('XOOPS_ROOT_PATH')) exit();
-require_once XOOPS_ROOT_PATH . '/modules/news/app/Model/AbstractModel.class.php';
+include_once XOOPS_ROOT_PATH . '/modules/news/app/Model/AbstractNewsModel.class.php';
 
 /**
  * AbstractController

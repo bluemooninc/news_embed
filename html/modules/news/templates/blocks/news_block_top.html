@@ -936,7 +936,7 @@ html #tabNavigation .selectedTab a/* */, html #tabNavigation .selectedTab a:link
 		<tr>
 			<td colspan='2'>
 			<{if $block.spotlight.read_more}>
-				<div align='right'><a href="<{$xoops_url}>/modules/news/article.php?storyid=<{$block.spotlight.id}>"><{$block.lang_read_more}></a> &nbsp;&nbsp;&nbsp;</div>
+				<div align='right'><a href="<{$xoops_url}>/modules/news/index.php?action=article&storyid=<{$block.spotlight.id}>"><{$block.lang_read_more}></a> &nbsp;&nbsp;&nbsp;</div>
 				<hr width='98%' />
 			<{/if}>
 			</td>
@@ -961,7 +961,7 @@ html #tabNavigation .selectedTab a/* */, html #tabNavigation .selectedTab a:link
 							<a href="<{$xoops_url}>/modules/news/index.php?storytopic=<{$news.topicid}>">
 							  <{$lang_morereleases}><{$news.topic_title}></a> : 
 						<{/if}>
-						<a href="<{$xoops_url}>/modules/news/article.php?storyid=<{$news.id}>"
+						<a href="<{$xoops_url}>/modules/news/index.php?action=article&storyid=<{$news.id}>"
 						  <{$news.infotips}>><{$news.title}></a> <br /><{$news.teaser}></li>
 					<{/if}>
 				<{/foreach}>

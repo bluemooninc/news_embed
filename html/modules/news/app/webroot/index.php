@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *********************************************************************************************/
-require_once '../../../../mainfile.php'; // Load XOOPS Config
+include_once '../../../../mainfile.php'; // Load XOOPS Config
 function errorMessage($errorMessage)
 {
 	echo("<h1>" . $errorMessage[0] . "</h1>");
@@ -66,9 +66,9 @@ if (preg_match('/^[0-9a-zA-Z\._-]+$/', $controller_name)) {
 }
 $controllerFileName = $controller_name . $ext;
 $controllerFullPath = _MY_MODULE_PATH . $controllerAppPath . $controllerFileName;
-//require_once _MY_MODULE_PATH . $controllerAppPath . 'AbstractController.class.php';
-require_once _MY_MODULE_PATH . $modelAppPath . 'AbstractModel.class.php';
-//require_once _MY_MODULE_PATH . $controllerAppPath . 'ErrorMessageHandler.php';
+include_once _MY_MODULE_PATH . $controllerAppPath . 'AbstractController.class.php';
+//include_once _MY_MODULE_PATH . $modelAppPath . 'AbstractNewsModel.class.php';
+//include_once _MY_MODULE_PATH . $controllerAppPath . 'ErrorMessageHandler.php';
 
 $errorMessage[3] = "class " . $controllerClass . " extends AbstractController {";
 $errorMessage[5] = "}";

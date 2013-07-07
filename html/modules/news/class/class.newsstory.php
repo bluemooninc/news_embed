@@ -49,8 +49,8 @@ class NewsStory extends XoopsStory
 	function NewsStory($storyid=-1)
 	{
 		$this->db =& Database::getInstance();
-		$this->table = $this->db->prefix("stories");
-		$this->topicstable = $this->db->prefix("topics");
+		$this->table = $this->db->prefix("news_stories");
+		$this->topicstable = $this->db->prefix("news_topics");
 		if (is_array($storyid)) {
 			$this->makeStory($storyid);
 		} elseif($storyid != -1) {
@@ -64,7 +64,7 @@ class NewsStory extends XoopsStory
 	function GetCountStoriesPublishedBefore($timestamp, $expired, $topicslist='')
 	{
 		$db =& Database::getInstance();
-		$sql = "SELECT count(*) as cpt FROM ".$db->prefix("stories")." WHERE published <=" . $timestamp;
+		$sql = "SELECT count(*) as cpt FROM ".$db->prefix("news_stories")." WHERE published <=" . $timestamp;
 		if($expired) {
 			$sql .=" AND (expired>0 AND expired<=".time().')';
 		}
@@ -96,9 +96,9 @@ class NewsStory extends XoopsStory
 		global $xoopsModule;
 		$mid= $xoopsModule->getVar('mid');
 		$db =& Database::getInstance();
-		$prefix = $db->prefix("stories");
+		$prefix = $db->prefix("news_stories");
 		$vote_prefix = $db->prefix("stories_votedata");
-		$files_prefix = $db->prefix("stories_files");
+		$files_prefix = $db->prefix("news_stories_files");
 		$sql = "SELECT storyid FROM  ".$prefix." WHERE published <=" . $timestamp;
 		if($expired) {
 			$sql .=" (AND expired>0 AND expired<=".time().')';
@@ -134,7 +134,7 @@ class NewsStory extends XoopsStory
 		$db =& Database::getInstance();
 		$myts =& MyTextSanitizer::getInstance();
 		$ret = array();
-		$sql = "SELECT s.*, t.* FROM ".$db->prefix("stories")." s, ". $db->prefix("topics")." t WHERE (published > 0 AND published <= ".time().") AND (expired = 0 OR expired > ".time().") AND (s.topicid=t.topic_id) ";
+		$sql = "SELECT s.*, t.* FROM ".$db->prefix("news_stories")." s, ". $db->prefix("news_topics")." t WHERE (published > 0 AND published <= ".time().") AND (expired = 0 OR expired > ".time().") AND (s.topicid=t.topic_id) ";
 		if ($topic != 0) {
 		    if (!is_array($topic)) {
 		    	if($checkRight) {
@@ -194,7 +194,7 @@ class NewsStory extends XoopsStory
 		$db =& Database::getInstance();
 		$myts =& MyTextSanitizer::getInstance();
 		$ret = array();
-		$sql = "SELECT s.*, t.* FROM ".$db->prefix("stories")." s, " .$db->prefix("topics")." t WHERE (s.topicid=t.topic_id) AND (s.published > " . $publish_start . " AND s.published <= " . $publish_end . ") ";
+		$sql = "SELECT s.*, t.* FROM ".$db->prefix("news_stories")." s, " .$db->prefix("news_topics")." t WHERE (s.topicid=t.topic_id) AND (s.published > " . $publish_start . " AND s.published <= " . $publish_end . ") ";
 	    if($checkRight) {
 	        $topics = MygetItemIds('news_view');
 	        if(count($topics)>0) {
@@ -234,7 +234,7 @@ class NewsStory extends XoopsStory
 		$myts =& MyTextSanitizer::getInstance();
 		$ret = array();
 		$tdate = mktime(0,0,0,date("n"),date("j"),date("Y"));
-		$sql = "SELECT s.*, t.* FROM ".$db->prefix("stories")." s, ". $db->prefix("topics")." t WHERE (s.topicid=t.topic_id) AND (published > ".$tdate." AND published < ".time().") AND (expired > ".time()." OR expired = 0) ";
+		$sql = "SELECT s.*, t.* FROM ".$db->prefix("news_stories")." s, ". $db->prefix("news_topics")." t WHERE (s.topicid=t.topic_id) AND (published > ".$tdate." AND published < ".time().") AND (expired > ".time()." OR expired = 0) ";
 
 		if ( intval($topic) != 0 ) {
 		    if (!is_array($topic)) {
@@ -285,8 +285,8 @@ class NewsStory extends XoopsStory
 		$db =& Database::getInstance();
 		$myts =& MyTextSanitizer::getInstance();
 		$ret = array();
-		$tblstory=$db->prefix("stories");
-		$tbltopics=$db->prefix("topics");
+		$tblstory=$db->prefix("news_stories");
+		$tbltopics=$db->prefix("news_topics");
 
 		$sql = "SELECT " . $tblstory . ".*, ". $tbltopics . ".topic_title, ".$tbltopics.".topic_color FROM ".$tblstory.",".$tbltopics ." WHERE (".$tblstory.".topicid=".$tbltopics.".topic_id) AND (published > 0 AND published <= ".time().") AND (expired = 0 OR expired > ".time().")";
 		$sql .= " AND uid=".intval($uid);
@@ -339,7 +339,7 @@ class NewsStory extends XoopsStory
 		$db =& Database::getInstance();
 		$myts =& MyTextSanitizer::getInstance();
 		$ret = array();
-		$sql = "SELECT * FROM ".$db->prefix("stories")." WHERE expired <= ".time()." AND expired > 0";
+		$sql = "SELECT * FROM ".$db->prefix("news_stories")." WHERE expired <= ".time()." AND expired > 0";
 		if ( !empty($topic) ) {
 			$sql .= " AND topicid=".intval($topic)." AND (ihome=1 OR ihome=0)";
 		} else {
@@ -370,7 +370,7 @@ class NewsStory extends XoopsStory
 		$db =& Database::getInstance();
 		$myts =& MyTextSanitizer::getInstance();
 		$ret = array();
-		$sql = "SELECT * FROM ".$db->prefix("stories")." WHERE published > ".time()." ORDER BY published ASC";
+		$sql = "SELECT * FROM ".$db->prefix("news_stories")." WHERE published > ".time()." ORDER BY published ASC";
 		$result = $db->query($sql,intval($limit),intval($start));
 		while ( $myrow = $db->fetchArray($result) ) {
 			if ( $asobject ) {
@@ -407,7 +407,7 @@ class NewsStory extends XoopsStory
 		    }
 		    $criteria->add($criteria2);
 		}
-		$sql = "SELECT s.*, t.* FROM ".$db->prefix("stories")." s, ".$db->prefix("topics")." t ";
+		$sql = "SELECT s.*, t.* FROM ".$db->prefix("news_stories")." s, ".$db->prefix("news_topics")." t ";
 		$sql .= ' '.$criteria->renderWhere()." AND (s.topicid=t.topic_id) ORDER BY created DESC";
 		$result = $db->query($sql,intval($limit),intval($start));
 		while ( $myrow = $db->fetchArray($result) ) {
@@ -430,7 +430,7 @@ class NewsStory extends XoopsStory
 	function getAllStoriesCount($storytype=1, $checkRight = false)
 	{
 		$db =& Database::getInstance();
-		$sql = "SELECT count(*) as cpt FROM ".$db->prefix("stories")." WHERE ";
+		$sql = "SELECT count(*) as cpt FROM ".$db->prefix("news_stories")." WHERE ";
 		switch($storytype) {
 			case 1:	// Expired
 				$sql .="(expired <= ".time()." AND expired >0)";
@@ -467,7 +467,7 @@ class NewsStory extends XoopsStory
 	{
 		$ret = array();
 		$db =& Database::getInstance();
-		$sql = "SELECT * FROM ".$db->prefix("stories")." WHERE topicid=".intval($topicid)." ORDER BY published DESC";
+		$sql = "SELECT * FROM ".$db->prefix("news_stories")." WHERE topicid=".intval($topicid)." ORDER BY published DESC";
 		$result = $db->query($sql, intval($limit), 0);
 		while( $myrow = $db->fetchArray($result) ){
 			$ret[] = new NewsStory($myrow);
@@ -482,7 +482,7 @@ class NewsStory extends XoopsStory
 	function countPublishedByTopic($topicid=0, $checkRight = false)
 	{
 		$db =& Database::getInstance();
-		$sql = "SELECT COUNT(*) FROM ".$db->prefix("stories")." WHERE published > 0 AND published <= ".time()." AND (expired = 0 OR expired > ".time().")";
+		$sql = "SELECT COUNT(*) FROM ".$db->prefix("news_stories")." WHERE published > 0 AND published <= ".time()." AND (expired = 0 OR expired > ".time().")";
 		if ( !empty($topicid) ) {
 			$sql .= " AND topicid=".intval($topicid);
 		} else {
@@ -738,7 +738,7 @@ class NewsStory extends XoopsStory
 		$myts =& MyTextSanitizer::getInstance();
 		if($usetopicsdef) {	// We firt begin by exporting topics definitions
 			// Before all we must know wich topics to export
-			$sql = "SELECT distinct topicid FROM ".$this->db->prefix("stories")." WHERE (published >=" . $fromdate . " AND published <= " . $todate .")";
+			$sql = "SELECT distinct topicid FROM ".$this->db->prefix("news_stories")." WHERE (published >=" . $fromdate . " AND published <= " . $todate .")";
 			if(strlen(trim($topicslist))>0) {
 				$sql .=" AND topicid IN (".$topicslist.")";
 			}
@@ -877,7 +877,7 @@ class NewsStory extends XoopsStory
 	{
 		$db =& Database::getInstance();
 		$ret = $rand_keys = $ret3 = array();
-		$sql = "SELECT storyid FROM ".$db->prefix("stories")." WHERE (published > 0 AND published <= ".time().") AND (expired = 0 OR expired > ".time().")";
+		$sql = "SELECT storyid FROM ".$db->prefix("news_stories")." WHERE (published > 0 AND published <= ".time().") AND (expired = 0 OR expired > ".time().")";
 		if ($topic != 0) {
 		    if (!is_array($topic)) {
 		    	if($checkRight) {
@@ -946,9 +946,9 @@ class NewsStory extends XoopsStory
 	{
 		$ret=array();
 		$db =& Database::getInstance();
-		$tbls=$db->prefix("stories");
-		$tblt=$db->prefix("topics");
-		$tblf=$db->prefix("stories_files");
+		$tbls=$db->prefix("news_stories");
+		$tblt=$db->prefix("news_topics");
+		$tblf=$db->prefix("news_stories_files");
 
 		$db =& Database::getInstance();
 		// Number of stories per topic, including expired and non published stories

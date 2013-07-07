@@ -111,7 +111,7 @@ if(is_object($xoopsUser)) {
 		$useroffset = $xoopsConfig['default_TZ'];
 	}
 }
-$result = $xoopsDB->query("SELECT published FROM ".$xoopsDB->prefix("stories").
+$result = $xoopsDB->query("SELECT published FROM ".$xoopsDB->prefix("news_stories").
 " WHERE published>0 AND published<=".time()." AND expired <= ".time()." ORDER BY published DESC");
 if (!$result) {
 	echo _ERRORS;
